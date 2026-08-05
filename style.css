@@ -315,10 +315,11 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .search-again { width:100%; flex:none; margin:0; padding:10px; border:1px solid #d2ddd5; border-radius:15px; color:#597062; background:transparent; font-size:10px; font-weight:700; cursor:pointer; }
 
 /* --------------------------------------------------------------------------
-   9. 底部導覽列 — 對齊 CMF2026 實測規格（齊平置底、無圓角）
+   9. 底部導覽列 — 直接固定於 visual viewport，不依賴 app-shell 高度
    -------------------------------------------------------------------------- */
 .bottom-nav {
-  position:absolute; z-index:70; left:0; right:0; bottom:0; width:auto;
+  position:fixed; z-index:70; left:50%; right:auto; bottom:0;
+  width:min(100%,480px); transform:translateX(-50%);
   height:var(--dock);
   padding:var(--tab-pad) var(--tab-pad) calc(var(--tab-pad) + env(safe-area-inset-bottom));
   display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2px;
