@@ -88,72 +88,11 @@ document.getElementById("search-again").addEventListener("click", () => {
   input.focus();
 });
 
-// Mobile pull-to-refresh. It only activates when the page is already at the top.
-const appShell = document.querySelector(".app-shell");
-const pullRefresh = document.getElementById("pull-refresh");
-const pullThreshold = 78;
-let pullStartY = 0;
-let pullDistance = 0;
-let isPulling = false;
-let isRefreshing = false;
-
-function pageIsAtTop() {
-  return window.scrollY <= 0 && document.documentElement.scrollTop <= 0;
-}
-
-function setPullVisual(distance) {
-  const eased = Math.min(108, distance * 0.48);
-  const progress = Math.min(1, eased / pullThreshold);
-  appShell.style.transform = `translateY(${eased}px)`;
-  pullRefresh.style.setProperty("--pull-progress", progress);
-  pullRefresh.classList.toggle("ready", eased >= pullThreshold);
-  pullRefresh.setAttribute("aria-hidden", "false");
-  pullRefresh.querySelector("b").textContent = eased >= pullThreshold ? "放開立即重新整理" : "下拉重新整理";
-  pullRefresh.querySelector("span").textContent = eased >= pullThreshold ? "↑" : "↓";
-}
-
-function resetPullVisual() {
-  appShell.classList.remove("pulling");
-  appShell.style.transform = "";
-  pullRefresh.classList.remove("ready");
-  pullRefresh.setAttribute("aria-hidden", "true");
-}
-
-document.addEventListener("touchstart", event => {
-  if (isRefreshing || !pageIsAtTop() || event.touches.length !== 1 || event.target.closest("input, textarea, select")) return;
-  pullStartY = event.touches[0].clientY;
-  pullDistance = 0;
-  isPulling = true;
-  appShell.classList.add("pulling");
-}, {passive:true});
-
-document.addEventListener("touchmove", event => {
-  if (!isPulling || isRefreshing || event.touches.length !== 1) return;
-  pullDistance = event.touches[0].clientY - pullStartY;
-  if (pullDistance <= 0 || !pageIsAtTop()) return;
-  event.preventDefault();
-  setPullVisual(pullDistance);
-}, {passive:false});
-
-document.addEventListener("touchend", () => {
-  if (!isPulling || isRefreshing) return;
-  isPulling = false;
-  const eased = Math.min(108, pullDistance * 0.48);
-  if (eased >= pullThreshold) {
-    isRefreshing = true;
-    pullRefresh.classList.add("refreshing");
-    pullRefresh.querySelector("b").textContent = "正在取得最新內容";
-    pullRefresh.querySelector("span").textContent = "↻";
-    appShell.classList.remove("pulling");
-    appShell.style.transform = "translateY(72px)";
-    if (navigator.vibrate) navigator.vibrate(30);
-    window.setTimeout(() => window.location.reload(), 450);
-  } else {
-    resetPullVisual();
-  }
-}, {passive:true});
-
-document.addEventListener("touchcancel", () => {
-  isPulling = false;
-  if (!isRefreshing) resetPullVisual();
-}, {passive:true});
+document.getElementById("refresh-button").addEventListener("click", event => {
+  const button = event.currentTarget;
+  if (button.classList.contains("refreshing")) return;
+  button.classList.add("refreshing");
+  button.setAttribute("aria-label", "正在更新");
+  if (navigator.vibrate) navigator.vibrate(25);
+  window.setTimeout(() => window.location.reload(), 450);
+});
