@@ -29,12 +29,11 @@
 <body>
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-    <header class="topbar minimal-topbar"><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
+    <header class="topbar minimal-topbar"><button class="mini-badge" data-tab="home" type="button" aria-label="回到首頁">567<i>°</i></button><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
 
     <section class="content tab-page active" id="home">
       <div class="hero-photo"><img src="assets/home-mystery-quest.png" alt="567 Mystery Quest，未知才是旅程最精彩的開始"></div>
-      <div class="home-secret-note clue-panel"><span>✦</span><div class="secret-progress"><p><small>目前線索</small><b>8 個未知目的地</b><em>每一站，都在出發前一小時揭曉</em></p><div class="progress-dots" aria-label="已揭曉零個，共八個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
-      <button class="home-cta" data-tab="trip">查看下一站倒數 <span>›</span></button>
+      <button class="home-secret-note clue-panel" data-tab="trip" type="button" aria-label="查看下一站倒數"><span class="clue-spark">✦</span><div class="secret-progress"><p><small>目前線索</small><b>8 個未知目的地</b><em>出發前一小時揭曉</em></p><div class="progress-dots" aria-label="已揭曉零個，共八個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><i class="clue-arrow">›</i></button>
     </section>
 
     <section class="content tab-page" id="trip">
