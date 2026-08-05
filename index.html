@@ -27,7 +27,7 @@
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" as="image" href="assets/home-mystery-quest.jpg">
-  <link rel="stylesheet" href="style.css?v=567mystery-v22-20260806">
+  <link rel="stylesheet" href="style.css?v=567mystery-v27-20260806">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -45,7 +45,7 @@
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
     <header class="topbar">
-      <span class="build-tag" id="build-tag">v22-20260806</span>
+      <span class="build-tag" id="build-tag">V2</span>
       <button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-refresh"/></svg></button>
     </header>
 
@@ -72,9 +72,10 @@
         <div class="mission-meta" id="mission-meta">DAY 1 · MISSION 01</div>
 
         <div class="mission-body" id="locked-content">
-          <p class="mission-lead">目的地暫時保密</p>
+          <div class="mission-lead"><small><i aria-hidden="true">✦</i> 保持期待</small><strong>等時間揭曉</strong></div>
           <div class="countdown" id="countdown"></div>
           <p class="countdown-label">距離揭曉</p>
+          <p class="clue-heading" id="clue-heading">下一站線索</p>
           <div class="clue-list" id="mission-clues"></div>
         </div>
 
@@ -94,14 +95,6 @@
       <div class="timeline" id="mission-timeline"></div>
       <button class="back-now" id="back-now" type="button" hidden>回到目前進度</button>
 
-      <!-- ▼▼▼ 上線前把這兩塊（mission-tests 與 tip-card）整段刪掉即可 ▼▼▼ -->
-      <div class="mission-tests">
-        <small>任務揭曉測試</small>
-        <div class="mission-test-grid" id="mission-test-grid"></div>
-        <button class="reset-test" id="reset-test" type="button" hidden>恢復目前進度</button>
-      </div>
-      <div class="tip-card"><span>RULE</span><p>正式上線時可移除測試按鈕，時間一到就會自動揭曉。</p></div>
-      <!-- ▲▲▲ 測試工具結束 ▲▲▲ -->
     </section>
 
     <!-- ==================== 查詢 ==================== -->
@@ -146,7 +139,7 @@
 
   <div class="rotate-guard" aria-hidden="true"><div><span>⟳</span><b>請直立使用</b><small>567 神秘小旅行僅支援直式畫面</small></div></div>
 
-  <script src="app.js?v=567mystery-v22-20260806"></script>
-  <script src="autoupdate.js?v=567mystery-v22-20260806"></script>
+  <script src="app.js?v=567mystery-v27-20260806"></script>
+  <script src="autoupdate.js?v=567mystery-v27-20260806"></script>
 </body>
 </html>

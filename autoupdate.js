@@ -4,14 +4,15 @@
 
    ★ 改版時：這裡的 BUILD 要跟 sw.js 的 VERSION 改成同一個字串。 */
 (() => {
-  const BUILD = "567mystery-v22-20260806";
+  const BUILD = "567mystery-v27-20260806";
+  const DISPLAY_VERSION = "V2";
 
   const src = (document.currentScript && document.currentScript.src) || "";
   const root = src.replace(/autoupdate\.js.*$/, "") || "./";
 
   document.addEventListener("DOMContentLoaded", () => {
     const tag = document.getElementById("build-tag");
-    if (tag) tag.textContent = BUILD.replace(/^567mystery-/, "").replace(/-\d+$/, "");
+    if (tag) tag.textContent = DISPLAY_VERSION;
   });
 
   if ("serviceWorker" in navigator) {

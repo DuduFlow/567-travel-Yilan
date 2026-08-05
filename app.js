@@ -1,5 +1,5 @@
 /* ==========================================================================
-   567 神秘小旅行 — app.js  v22
+   567 神秘小旅行 — app.js  v26
    資料來源：567旅遊分房分車表.xlsx（分房表 / 分車表）
    ========================================================================== */
 
@@ -71,13 +71,13 @@ const roomType   = {1:"2+1 房",2:"2+1 房",3:"雙人房",4:"雙人房",5:"雙�
    二、任務資料
    -------------------------------------------------------------------------- */
 const missions = [
-  {day:1,date:"09.04",unlockAt:"2026-09-04T11:00:00+08:00",key:"烤雞",icon:"食",title:"番割田甕缸雞",subtitle:"用美食開啟宜蘭小旅行",time:"集合時間｜12:00",prep:"準備｜帶著空空的胃",clues:["會濕｜泳裝、毛巾、拖鞋、替換衣物 1–2 套","戶外｜防蚊、防曬；需要可帶摺疊椅或天幕","過夜｜盥洗用品、常備藥與行動電源"],map:"https://maps.app.goo.gl/Wyzm8RsR2wq532oe7"},
+  {day:1,date:"09.04",unlockAt:"2026-09-04T09:45:00+08:00",key:"烤雞",icon:"食",title:"番割田甕缸雞",subtitle:"用美食開啟宜蘭小旅行",time:"集合時間｜12:00",prep:"準備｜帶著空空的胃",clues:["會濕｜泳裝、毛巾、拖鞋、替換衣物 1–2 套","戶外｜防蚊、防曬；需要可帶摺疊椅或天幕","過夜｜盥洗用品、常備藥與行動電源"],map:"https://maps.app.goo.gl/Wyzm8RsR2wq532oe7"},
   {day:1,date:"09.04",unlockAt:"2026-09-04T13:00:00+08:00",key:"玩水",icon:"水",title:"武荖坑林道",subtitle:"山林裡的清涼冒險",time:"行程｜午後戲水",prep:"準備｜拖鞋、毛巾與替換衣物",clues:["下一站可能會弄濕鞋子","山林裡藏著天然冷氣","有顆西瓜會更完美"],map:"https://maps.app.goo.gl/baB9JcnScgKMNcE2A"},
-  {day:1,date:"09.04",unlockAt:"2026-09-04T16:00:00+08:00",key:"採購",icon:"購",title:"喜互惠生鮮超市維揚店",subtitle:"旅途中的補給採購任務",time:"行程｜補給與自由採購",prep:"準備｜購物袋與零錢",clues:["補給時間就快到了","今晚必須是不醉不睡","記得先留一點行李空間"],map:"https://share.google/dwdt97eOk8M8L5iCL"},
-  {day:1,date:"09.04",unlockAt:"2026-09-04T18:00:00+08:00",key:"民宿",icon:"宿",title:"真善美精品民宿",subtitle:"今晚一起好好休息",time:"行程｜入住與分房",prep:"準備｜查看查詢頁的房間與室友",clues:["這裡是今晚的落腳處","今晚晚餐必定精彩","先放下行李再繼續冒險"],map:"https://maps.app.goo.gl/DHjGxREJJBrxrXEx6"},
-  {day:2,date:"09.05",unlockAt:"2026-09-05T08:00:00+08:00",key:"採蔥",icon:"蔥",title:"星寶蔥體驗農場",subtitle:"親手完成一份宜蘭蔥體驗",time:"行程｜田園體驗",prep:"準備｜防曬、好走的鞋",clues:["田裡藏著綠色寶藏","今天可能會沾上一點泥土","主角是宜蘭最有名的辛香滋味"],map:"https://maps.app.goo.gl/3LdMG3n4wv84r2s19"},
-  {day:2,date:"09.05",unlockAt:"2026-09-05T12:00:00+08:00",key:"狐狸",icon:"狐",title:"宜蘭狐狸村",subtitle:"拜訪毛茸茸的神秘居民",time:"行程｜園區探訪",prep:"準備｜相機與輕柔的腳步",clues:["有人正用毛茸茸的尾巴等你","靠近時記得放慢腳步","相機可以先準備好了"],map:"https://maps.app.goo.gl/GigQgkMxhXHn8Scd6"},
-  {day:2,date:"09.05",unlockAt:"2026-09-05T17:00:00+08:00",key:"晚宴",icon:"宴",title:"馫宴創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["567 旅遊的收尾標配","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/GqyNBGaTzk5FJDZm9"}
+  {day:1,date:"09.04",unlockAt:"2026-09-04T15:00:00+08:00",key:"採購",icon:"購",title:"喜互惠生鮮超市維揚店",subtitle:"旅途中的補給採購任務",time:"行程｜補給與自由採購",prep:"準備｜購物袋與零錢",clues:["補給時間就快到了","今晚必須是不醉不睡","記得先留一點行李空間"],map:"https://maps.app.goo.gl/MeTwHwFkH93H6vYR8"},
+  {day:1,date:"09.04",unlockAt:"2026-09-04T16:00:00+08:00",key:"民宿",icon:"宿",title:"真善美精品民宿",subtitle:"今晚一起好好休息",time:"行程｜入住與分房",prep:"準備｜查看查詢頁的房間與室友",clues:["這裡是今晚的落腳處","今晚晚餐必定精彩","先放下行李再繼續冒險"],map:"https://maps.app.goo.gl/DHjGxREJJBrxrXEx6"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T10:30:00+08:00",key:"採蔥",icon:"蔥",title:"星寶蔥體驗農場",subtitle:"親手完成一份宜蘭蔥體驗",time:"行程｜田園體驗",prep:"準備｜防曬、好走的鞋",clues:["田裡藏著綠色寶藏","今天可能會沾上一點泥土","主角是宜蘭最有名的辛香滋味"],map:"https://maps.app.goo.gl/3LdMG3n4wv84r2s19"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T13:00:00+08:00",key:"狐狸",icon:"狐",title:"宜蘭狐狸村",subtitle:"拜訪毛茸茸的神秘居民",time:"行程｜園區探訪",prep:"準備｜相機與輕柔的腳步",clues:["有人正用毛茸茸的尾巴等你","靠近時記得放慢腳步","相機可以先準備好了"],map:"https://maps.app.goo.gl/GigQgkMxhXHn8Scd6"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T15:00:00+08:00",key:"晚宴",icon:"宴",title:"馫宴創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["567 旅遊的收尾標配","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/GqyNBGaTzk5FJDZm9"}
 ];
 
 /* 民宿那一站，查詢頁的導航按鈕會指到這裡 */
@@ -137,7 +137,7 @@ function currentView(now) {
 function buildCountdown(showDays) {
   const unit = (key, label) => `<span data-cd="${key}"><b>00</b><i>${label}</i></span>`;
   $("countdown").innerHTML =
-    (showDays ? unit("d", "天") : "") +
+    (showDays ? unit("d", "天") + `<em class="day-divider" aria-hidden="true"></em>` : "") +
     unit("h", "時") + `<em>:</em>` + unit("m", "分") + `<em>:</em>` + unit("s", "秒");
   countdownNodes = {};
   $("countdown").querySelectorAll("[data-cd]").forEach(node => { countdownNodes[node.dataset.cd] = node.querySelector("b"); });
@@ -175,15 +175,16 @@ function renderMission(view, released) {
     $("mission-live").textContent = `已揭曉：${mission.title}，${mission.time}`;
     countdownNodes = null;
   } else {
+    $("clue-heading").textContent = view.index === 0 ? "出發前，先準備好" : "下一站線索";
+    $("mission-clues").classList.toggle("is-prep", view.index === 0);
     $("mission-clues").innerHTML = mission.clues.map((clue, i) => i < released
       ? `<p><span>0${i + 1}</span><b>${clue}</b></p>`
       : `<p class="pending"><span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg></span><b>線索稍後出現</b></p>`
     ).join("");
-    $("mission-live").textContent = `目的地暫時保密，共 ${mission.clues.length} 則線索`;
+    $("mission-live").textContent = `保持期待，等時間揭曉，共 ${mission.clues.length} 則線索`;
   }
   renderTimeline(view);
   $("back-now").hidden = !preview;
-  $("reset-test").hidden = !preview;
 }
 
 function renderTimeline(view) {
@@ -229,31 +230,6 @@ $("back-now").addEventListener("click", () => { preview = null; lastSignature = 
 
 setInterval(tick, 1000);
 tick();
-
-/* ---- ▼ 上線前可整段刪除的測試工具 ▼ ---- */
-$("mission-test-grid").innerHTML = [1, 2].map(day => {
-  const list = missions.map((mission, index) => ({ mission, index })).filter(item => item.mission.day === day);
-  const row = list.map((item, position) =>
-    `${position ? `<button class="mystery-trigger" type="button" data-test="lock" data-index="${item.index}" aria-label="查看${item.mission.key}的倒數"><span>迷</span></button>` : ""}` +
-    `<button type="button" data-test="open" data-index="${item.index}" aria-label="查看${item.mission.key}謎底"><span>${item.mission.icon}</span>${item.mission.key}</button>`
-  ).join("");
-  return `<section><b>DAY ${day}<small>${day === 1 ? "09.04" : "09.05"}</small></b><div>${row}</div></section>`;
-}).join("");
-
-$("mission-test-grid").addEventListener("click", event => {
-  const button = event.target.closest("button[data-test]");
-  if (!button) return;
-  preview = { index: Number(button.dataset.index), unlocked: button.dataset.test === "open" };
-  lastSignature = "";
-  tick();
-  document.querySelectorAll("#mission-test-grid button").forEach(item => item.classList.toggle("active", item === button));
-});
-$("reset-test").addEventListener("click", () => {
-  preview = null; lastSignature = "";
-  document.querySelectorAll("#mission-test-grid button").forEach(item => item.classList.remove("active"));
-  tick();
-});
-/* ---- ▲ 測試工具結束 ▲ ---- */
 
 /* --------------------------------------------------------------------------
    五、查詢頁

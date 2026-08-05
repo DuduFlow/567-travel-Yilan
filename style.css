@@ -1,5 +1,5 @@
 /* ==========================================================================
-   567 神秘小旅行 — style.css  v22
+   567 神秘小旅行 — style.css  v23
    尺度系統：間距 4/8/12/16/24/32 · 字級 11/13/15/18/24/32/44 · 圓角 12/16/24
    字體兩套（標題襯線 / 內文黑體），Georgia 僅用於數字。
    查詢頁沿用 CMF2026 的深綠整卡語彙：半透明分區、虛線分隔、圓點清單。
@@ -179,18 +179,26 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .mission-body { position:relative; z-index:1; width:100%; }
 .mission-body.revealed { padding-top:30px; }
 
-.mission-lead { margin:0; color:var(--on-card-2); font-size:var(--f2); letter-spacing:.04em; }
-.countdown { display:flex; justify-content:center; align-items:flex-start; gap:var(--s2); margin:var(--s3) 0 var(--s1); }
+.mission-lead { margin:0; display:grid; justify-items:center; gap:11px; }
+.mission-lead small { position:relative; overflow:hidden; padding:7px 15px; border:1px solid rgba(240,209,143,.48); border-radius:999px; color:var(--gold-text); background:rgba(240,209,143,.09); box-shadow:0 0 0 4px rgba(240,209,143,.035); font-size:15px; font-weight:700; letter-spacing:.16em; line-height:1; }
+.mission-lead small:after { content:""; position:absolute; top:-50%; left:-45%; width:34%; height:200%; transform:rotate(18deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent); animation:lead-shine 1.2s .35s ease-out both; }
+.mission-lead small i { display:inline-block; margin-right:5px; color:var(--gold); font-style:normal; animation:star-in .8s ease both; }
+.mission-lead strong { color:#fff; font-family:var(--font-title); font-size:22px; font-weight:600; letter-spacing:.08em; line-height:1.25; }
+.countdown { display:flex; justify-content:center; align-items:flex-start; gap:var(--s2); margin:18px 0 var(--s1); }
 .countdown span { display:flex; flex-direction:column; align-items:center; gap:2px; min-width:52px; }
 .countdown b { font-family:var(--font-num); font-size:var(--f7); font-weight:400; line-height:1; font-variant-numeric:tabular-nums; color:#fff; }
 .countdown i { color:var(--on-card-2); font-size:var(--f1); font-style:normal; letter-spacing:.08em; }
 .countdown em { margin-top:6px; color:rgba(246,223,174,.8); font-family:var(--font-num); font-size:var(--f5); font-style:normal; line-height:1; }
+.countdown .day-divider { width:1px; height:46px; margin:2px 4px 0; align-self:flex-start; background:linear-gradient(to bottom,transparent,rgba(240,209,143,.78) 22%,rgba(240,209,143,.78) 78%,transparent); }
 .countdown-label { margin:0; color:var(--on-card-2); font-size:var(--f1); letter-spacing:.16em; }
 
-.clue-list { width:100%; margin-top:var(--s5); padding-top:var(--s4); border-top:1px dashed var(--hair); display:grid; gap:var(--s3); text-align:left; }
+.clue-heading { margin:24px 0 0; padding-top:18px; border-top:1px dashed var(--hair); color:var(--gold-text); font-size:13px; font-weight:700; letter-spacing:.12em; text-align:left; }
+.clue-list { width:100%; margin-top:12px; display:grid; gap:14px; text-align:left; }
 .clue-list p { margin:0; display:flex; gap:var(--s3); align-items:flex-start; }
-.clue-list span { flex:none; width:20px; padding-top:2px; color:var(--gold-text); font-size:var(--f1); font-weight:700; }
-.clue-list b { font-size:var(--f2); font-weight:400; line-height:1.55; color:var(--on-card); }
+.clue-list span { flex:none; width:24px; padding-top:2px; color:var(--gold-text); font-size:12px; font-weight:700; }
+.clue-list b { font-size:16px; font-weight:500; line-height:1.55; color:#f4f8f5; letter-spacing:.01em; }
+.clue-list.is-prep span { color:#f0d18f; }
+.clue-list.is-prep b { font-size:15px; }
 .clue-list .pending { opacity:.5; }
 .clue-list .pending span, .clue-list .pending b { color:var(--on-card-2); }
 .clue-list .pending svg { width:13px; height:13px; vertical-align:-2px; }
@@ -216,30 +224,6 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .timeline .is-viewing { box-shadow:inset 0 0 0 2px #c68b34; }
 
 .back-now { flex:none; width:100%; height:44px; border:1px solid var(--line); border-radius:var(--r1); color:var(--muted-2); background:var(--paper); font-size:var(--f2); font-weight:600; }
-
-/* ---- 上線前可整段刪除的測試工具（index.html 有對應標記） ---- */
-.mission-tests { flex:none; padding:8px 10px; border:1px dashed #c9b382; border-radius:var(--r2); background:#fffaee; }
-.mission-tests > small { display:block; margin-bottom:5px; color:#7d6229; font-size:10px; font-weight:700; letter-spacing:.1em; }
-.mission-test-grid { display:grid; gap:5px; }
-.mission-test-grid section { display:grid; grid-template-columns:52px 1fr; gap:var(--s2); align-items:center; }
-.mission-test-grid section > b { display:flex; flex-direction:column; color:var(--muted-2); font-size:var(--f1); }
-.mission-test-grid section > b small { margin-top:2px; color:#8a6b2f; font-size:var(--f1); }
-.mission-test-grid section > div { min-width:0; display:flex; align-items:center; gap:var(--s1); }
-.mission-test-grid button { min-width:0; min-height:34px; padding:2px; border:1px solid #ecdcb8; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; color:var(--muted-2); background:var(--paper); font-size:9px; font-weight:600; }
-.mission-test-grid button[data-mission-index] { flex:1 1 0; }
-.mission-test-grid button span { color:#a9762f; font-family:var(--font-title); font-size:11px; font-weight:700; }
-.mission-test-grid button.active { color:#fff; border-color:var(--deep); background:var(--deep); }
-.mission-test-grid button.active span { color:var(--gold); }
-.mission-test-grid .mystery-trigger { flex:0 0 24px; width:24px; height:24px; min-height:24px; padding:0; border-color:#d5b477; border-radius:50%; background:var(--gold-bg); }
-.mission-test-grid .mystery-trigger span { color:var(--gold-ink); font-size:var(--f1); }
-.mission-test-grid .mystery-trigger.active { border-color:#c68b34; background:#b4832f; }
-.mission-test-grid .mystery-trigger.active span { color:#fff; }
-.reset-test { width:100%; margin-top:5px; height:32px; border:0; border-radius:10px; color:var(--muted-2); background:var(--mist); font-size:10px; font-weight:600; }
-
-.tip-card { flex:none; padding:var(--s3) var(--s4); border-radius:var(--r2); display:flex; align-items:center; gap:var(--s3); background:#dde9e5; }
-.tip-card span { flex:none; padding:var(--s1) var(--s2); border-radius:var(--s2); color:#fff; background:#3f6f6b; font-size:var(--f1); font-weight:700; letter-spacing:.1em; }
-.tip-card p { margin:0; color:#3d5750; font-size:var(--f2); line-height:1.5; }
-/* ---- 測試工具結束 ---- */
 
 /* --------------------------------------------------------------------------
    8. 查詢頁
@@ -389,6 +373,8 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 @keyframes rise { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 @keyframes spin { to { transform:rotate(360deg); } }
 @keyframes pop  { 0% { transform:scale(.5); opacity:0; } 100% { transform:none; opacity:1; } }
+@keyframes star-in { 0% { opacity:0; transform:scale(.5) rotate(-25deg); } 55% { opacity:1; transform:scale(1.25) rotate(8deg); } 100% { transform:none; } }
+@keyframes lead-shine { from { left:-45%; } to { left:120%; } }
 
 /* --------------------------------------------------------------------------
    12. 小螢幕微調（頂部列高度一律保留，不再壓到標題）
