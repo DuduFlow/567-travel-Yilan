@@ -1,1 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#17352c">
+  <meta name="description" content="下一站，時間到了才知道｜567 宜蘭二日神秘旅程">
+  <meta property="og:title" content="567 神秘小旅行">
+  <meta property="og:description" content="下一站，時間到了才知道">
+  <meta property="og:image" content="assets/og-mystery.png">
+  <title>567 神秘小旅行</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <header class="topbar"><button class="brand" data-tab="home" aria-label="回到首頁"><span>567</span><b>TRIP</b></button><div class="trip-date"><span></span>09.04 — 09.05</div></header>
 
+    <section class="content tab-page active" id="home">
+      <div class="hero">
+        <p class="eyebrow">567 · MYSTERY JOURNEY</p>
+        <h1>下一站去哪？<br><em>時間到了才知道。</em></h1>
+        <p class="hero-lead">一場每個小時，都值得期待的宜蘭旅行</p>
+        <div class="landscape" aria-hidden="true"><div class="sun"></div><div class="mountain back"></div><div class="mountain front"></div><div class="river"></div><span class="landscape-label">THE SECRET IS WAITING · 2026</span></div>
+      </div>
+      <div class="home-secret-note"><span>✦</span><p><b>8 個未知目的地</b><small>每一站，都在出發前一小時揭曉。</small></p></div>
+      <button class="home-cta" data-tab="trip">等待第一個驚喜 <span>›</span></button>
+      <p class="gentle-note">不用急著知道答案，期待本身就是旅行的一部分。</p>
+    </section>
+
+    <section class="content tab-page" id="trip">
+      <div class="page-intro"><p class="eyebrow">NEXT MISSION</p><h1>下一站，<br><em>時間到了才知道。</em></h1><p>示範任務｜9月4日第一站</p></div>
+      <div class="reveal-stage">
+        <div class="mystery-card locked" id="mission-card" aria-live="polite">
+          <div class="mystery-orbit"><span id="mission-icon">?</span><i></i></div>
+          <small id="mission-status">UNLOCKS ONE HOUR BEFORE</small>
+          <strong id="mission-title">目的地暫時保密</strong>
+          <div id="locked-content">
+            <div class="countdown" id="countdown" aria-label="距離解鎖倒數"></div>
+            <p class="clue"><span>CLUE 01</span>香氣會先替我們帶路</p>
+          </div>
+          <div class="revealed-details" id="revealed-content" hidden><p>用美食開啟宜蘭小旅行</p><span>集合時間｜12:00</span><span>準備｜帶著空空的胃</span></div>
+        </div>
+        <button class="test-button" id="test-reveal"><span>✦</span><p><b>測試：模擬時間到</b><small>按下後查看正式揭曉效果</small></p></button>
+      </div>
+      <div class="tip-card"><span>RULE</span><p>正式上線時可移除測試按鈕，時間一到就會自動揭曉。</p></div>
+    </section>
+
+    <section class="content tab-page" id="group">
+      <div class="page-intro group-intro"><p class="eyebrow">LOOK UP</p><h1>快速查詢，<br><em>我的車與房。</em></h1><p>37 位旅伴 · 12 車 · 12 房</p></div>
+      <div class="segment compact"><button class="active" data-group="car"><b>分車名單</b></button><button data-group="room"><b>分房名單</b></button></div>
+      <div class="group-list" id="group-list"></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="主要導覽">
+      <button class="active" data-tab="home"><span>⌂</span><b>首頁</b></button>
+      <button data-tab="trip"><span>◫</span><b>行程</b></button>
+      <button data-tab="group"><span>◎</span><b>查詢</b></button>
+    </nav>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
