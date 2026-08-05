@@ -23,16 +23,16 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Reset + 固定介面（不捲動、不縮放、不選取）
+   2. Reset + CMF 手機文件流
    -------------------------------------------------------------------------- */
 * { box-sizing:border-box; }
 
 html, body {
-  position:fixed; inset:0; width:100%; height:100%; margin:0;
-  overflow:hidden; overscroll-behavior:none;
+  width:100%; min-height:100%; margin:0;
+  overflow-x:hidden;
   -webkit-text-size-adjust:100%; text-size-adjust:100%;
 }
-html { background:#dfe7e2; }
+html { background:var(--cream); scroll-behavior:smooth; }
 body {
   color:var(--ink);
   background:linear-gradient(135deg,#dce6e0,#f0eee5);
@@ -52,17 +52,13 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 /* --------------------------------------------------------------------------
    3. App shell
    -------------------------------------------------------------------------- */
-/* 用 absolute + inset:0 貼齊已 position:fixed 的 body，
-   才能涵蓋 home indicator 安全區。
-   （不可用 100dvh：iOS standalone 下 100dvh 不含底部安全區，
-     會讓外框比螢幕矮一截，導覽列因此浮在半空） */
 .app-shell {
-  position:absolute; inset:0;
+  position:relative;
   width:100%; max-width:480px; margin:0 auto;
-  overflow:hidden;
+  min-height:100svh;
+  overflow-x:hidden;
   background:var(--cream);
   box-shadow:0 0 70px rgba(23,53,44,.16);
-  touch-action:none;
 }
 @media (min-width:700px) { .app-shell { border-radius:0; } }
 
@@ -102,12 +98,12 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .refresh-button.refreshing { animation:refreshSpin .65s linear infinite; }
 
 /* --------------------------------------------------------------------------
-   5. 分頁容器（三頁共用，皆為單畫面 flex 版面）
+   5. 分頁容器：正常文件流，頁面超出時由瀏覽器自然捲動
    -------------------------------------------------------------------------- */
 .content {
-  position:absolute; z-index:2;
-  inset:calc(58px + env(safe-area-inset-top)) 0 var(--dock);
-  overflow:hidden;
+  position:relative; z-index:2;
+  min-height:calc(100svh - var(--dock));
+  padding:58px 14px 18px;
   animation:rise .4s ease both;
 }
 .tab-page { display:none; }
@@ -126,7 +122,7 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
    6. 首頁 — 主視覺滿版 + 線索按鈕
    -------------------------------------------------------------------------- */
 #home.content {
-  inset:env(safe-area-inset-top) 0 var(--dock);
+  min-height:calc(100svh - var(--dock));
   padding:6px 14px 7px;
   gap:8px;
 }
@@ -315,7 +311,7 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .search-again { width:100%; flex:none; margin:0; padding:10px; border:1px solid #d2ddd5; border-radius:15px; color:#597062; background:transparent; font-size:10px; font-weight:700; cursor:pointer; }
 
 /* --------------------------------------------------------------------------
-   9. 底部導覽列 — 直接固定於 visual viewport，不依賴 app-shell 高度
+   9. 底部導覽列 — 對齊 CMF2026 實測規格（齊平置底、無圓角）
    -------------------------------------------------------------------------- */
 .bottom-nav {
   position:fixed; z-index:70; left:50%; right:auto; bottom:0;
@@ -394,78 +390,4 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 }
 @media (prefers-reduced-motion:reduce) {
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-}
-
-/* --------------------------------------------------------------------------
-   13. 穩定手機模式：導覽固定置底，其餘分頁各自垂直捲動
-   -------------------------------------------------------------------------- */
-.app-shell { touch-action:pan-y; }
-.content {
-  overflow-x:hidden;
-  overflow-y:auto;
-  overscroll-behavior-y:contain;
-  -webkit-overflow-scrolling:touch;
-  touch-action:pan-y;
-  padding-bottom:16px;
-}
-.tab-page.active { display:block; }
-#home.tab-page.active { display:block; }
-#home .hero-photo {
-  width:100%;
-  height:auto;
-  min-height:0;
-  aspect-ratio:1044 / 1507;
-  flex:none;
-}
-#home .clue-panel { margin-top:8px; }
-body.keyboard-open .content#group { overflow-y:auto; }
-
-/* 首頁不需要捲動：主圖吸收所有剩餘高度，避免線索卡與 Dock 之間留白。 */
-#home.tab-page.active {
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
-#home .hero-photo {
-  flex:1 1 auto;
-  width:100%;
-  height:auto;
-  min-height:0;
-  aspect-ratio:auto;
-}
-#home .hero-photo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-}
-#home .clue-panel { flex:none; }
-
-/* iOS 實機修正：比照 CMF，根頁面回到正常文件流，避免 fixed 100% 留下視窗差額。 */
-html, body {
-  position:static;
-  inset:auto;
-  width:100%;
-  height:auto;
-  min-height:100%;
-  overflow-x:hidden;
-  background:var(--cream);
-}
-body { overflow-y:hidden; }
-.app-shell {
-  position:relative;
-  inset:auto;
-  width:100%;
-  height:100svh;
-  min-height:100svh;
-  margin:0 auto;
-  overflow:hidden;
-}
-.bottom-nav {
-  position:fixed;
-  left:50%;
-  right:auto;
-  bottom:0;
-  width:min(100%,480px);
-  transform:translateX(-50%);
 }

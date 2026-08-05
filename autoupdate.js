@@ -4,7 +4,7 @@
 
    ★ 改版時：這裡的 BUILD 要跟 sw.js 的 VERSION 改成同一個字串。 */
 (() => {
-  const BUILD = "567mystery-v7-20260805";
+  const BUILD = "567mystery-v8-20260805";
 
   const src  = (document.currentScript && document.currentScript.src) || "";
   const root = src.replace(/autoupdate\.js.*$/, "") || "./";
