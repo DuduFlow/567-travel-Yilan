@@ -395,3 +395,27 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 @media (prefers-reduced-motion:reduce) {
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
+
+/* --------------------------------------------------------------------------
+   13. 穩定手機模式：導覽固定置底，其餘分頁各自垂直捲動
+   -------------------------------------------------------------------------- */
+.app-shell { touch-action:pan-y; }
+.content {
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  padding-bottom:16px;
+}
+.tab-page.active { display:block; }
+#home.tab-page.active { display:block; }
+#home .hero-photo {
+  width:100%;
+  height:auto;
+  min-height:0;
+  aspect-ratio:1044 / 1507;
+  flex:none;
+}
+#home .clue-panel { margin-top:8px; }
+body.keyboard-open .content#group { overflow-y:auto; }
