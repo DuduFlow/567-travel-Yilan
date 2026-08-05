@@ -38,9 +38,52 @@ function renderMission() {
 document.getElementById("test-reveal").addEventListener("click", () => { testReveal = !testReveal; renderMission(); });
 setInterval(renderMission,1000); renderMission();
 
-function renderGroups(kind="car") {
-  const list = kind === "car" ? cars.map(people => ({type:`${people.length} 位同行`,people})) : rooms;
-  document.getElementById("group-list").innerHTML = list.map((item,index) => `<details class="group-card"><summary><span class="group-number">${String(index+1).padStart(2,"0")}</span><span><small>${kind === "car" ? "CAR" : "ROOM"}</small><b>第 ${index+1} ${kind === "car" ? "車" : "房"}</b></span><em>${item.type}</em><i>＋</i></summary><div class="people">${item.people.map(person => `<span>${person}</span>`).join("")}</div></details>`).join("");
+function normalizeName(value) {
+  return value.normalize("NFKC").toLocaleLowerCase("zh-Hant").replace(/[^\p{L}\p{N}]/gu, "");
 }
-document.querySelectorAll("[data-group]").forEach(button => button.addEventListener("click", () => { document.querySelectorAll("[data-group]").forEach(item => item.classList.toggle("active",item===button)); renderGroups(button.dataset.group); }));
-renderGroups();
+
+function findTraveler(input) {
+  const target = normalizeName(input);
+  if (!target) return null;
+  const allNames = [...new Set(cars.flat())];
+  const name = allNames.find(person => normalizeName(person) === target);
+  if (!name) return null;
+  const carIndex = cars.findIndex(group => group.includes(name));
+  const roomIndex = rooms.findIndex(room => room.people.includes(name));
+  if (carIndex < 0 || roomIndex < 0) return null;
+  return { name, carIndex, roomIndex, leader: cars[carIndex][0], room: rooms[roomIndex] };
+}
+
+function showTraveler(traveler) {
+  document.getElementById("query-message").hidden = true;
+  document.getElementById("result-name").textContent = traveler.name;
+  document.getElementById("result-car").textContent = `第 ${traveler.carIndex + 1} 車`;
+  document.getElementById("result-leader").textContent = traveler.leader;
+  document.getElementById("result-leader-note").textContent = traveler.name === traveler.leader ? "你就是本車車長" : "";
+  document.getElementById("result-room").textContent = `第 ${traveler.roomIndex + 1} 房`;
+  document.getElementById("result-room-type").textContent = traveler.room.type;
+  const roommates = traveler.room.people.filter(person => person !== traveler.name);
+  document.getElementById("result-roommates").innerHTML = roommates.length ? roommates.map(person => `<span>${person}</span>`).join("") : "<span>此房沒有其他室友</span>";
+  document.getElementById("name-search").hidden = true;
+  document.getElementById("query-result").hidden = false;
+}
+
+document.getElementById("name-search").addEventListener("submit", event => {
+  event.preventDefault();
+  const input = document.getElementById("traveler-name");
+  const traveler = findTraveler(input.value.trim());
+  if (traveler) return showTraveler(traveler);
+  const message = document.getElementById("query-message");
+  message.textContent = "找不到這個姓名，請確認是否與分房分車表相同。";
+  message.hidden = false;
+  document.getElementById("query-result").hidden = true;
+  input.focus();
+});
+
+document.getElementById("search-again").addEventListener("click", () => {
+  document.getElementById("query-result").hidden = true;
+  document.getElementById("name-search").hidden = false;
+  const input = document.getElementById("traveler-name");
+  input.value = "";
+  input.focus();
+});

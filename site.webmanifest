@@ -1,0 +1,17 @@
+{
+  "name": "567 神秘小旅行",
+  "short_name": "567 旅行",
+  "description": "下一站，時間到了才知道",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F4EB",
+  "theme_color": "#17352C",
+  "icons": [
+    { "src": "icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

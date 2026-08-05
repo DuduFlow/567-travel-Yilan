@@ -11,3 +11,9 @@
 5. 儲存後等待 GitHub Pages 網址產生。
 
 網站不需要資料庫或額外套件，分車與分房資料已包含在 `app.js`。
+
+查詢頁採姓名搜尋，只會在畫面上顯示該旅客的車次、車長、房號、房型與室友。
+目前依每車名單中的第一位成員作為車長。
+
+`icons/`、`favicon.ico`、`apple-touch-icon.png`、`site.webmanifest` 與
+`browserconfig.xml` 是跨平台圖示套件，請一起上傳，不要遺漏。

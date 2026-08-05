@@ -4,12 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#17352c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="567 神秘旅行">
+  <meta name="application-name" content="567 神秘旅行">
+  <meta name="msapplication-TileColor" content="#17352c">
+  <meta name="msapplication-config" content="browserconfig.xml">
   <meta name="description" content="下一站，時間到了才知道｜567 宜蘭二日神秘旅程">
   <meta property="og:title" content="567 神秘小旅行">
   <meta property="og:description" content="下一站，時間到了才知道">
   <meta property="og:image" content="assets/og-mystery.png">
   <title>567 神秘小旅行</title>
-  <link rel="icon" href="favicon.svg">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -49,8 +63,21 @@
 
     <section class="content tab-page" id="group">
       <div class="page-intro group-intro"><p class="eyebrow">LOOK UP</p><h1>快速查詢，<br><em>我的車與房。</em></h1><p>37 位旅伴 · 12 車 · 12 房</p></div>
-      <div class="segment compact"><button class="active" data-group="car"><b>分車名單</b></button><button data-group="room"><b>分房名單</b></button></div>
-      <div class="group-list" id="group-list"></div>
+      <form class="name-search" id="name-search" autocomplete="off">
+        <label for="traveler-name">輸入你的姓名</label>
+        <div class="search-field"><input id="traveler-name" name="name" type="text" autocomplete="name" inputmode="text" placeholder="例如：陳怡靜" required><button type="submit">查詢</button></div>
+        <small>請輸入分房分車表上的姓名</small>
+      </form>
+      <div class="query-message" id="query-message" role="status" hidden></div>
+      <section class="query-result" id="query-result" aria-live="polite" hidden>
+        <div class="result-welcome"><span>旅</span><p><small>WELCOME ABOARD</small><strong id="result-name"></strong></p></div>
+        <div class="result-grid">
+          <article class="result-card car-result"><small>YOUR CAR</small><b id="result-car"></b><p>車長</p><strong id="result-leader"></strong><em id="result-leader-note"></em></article>
+          <article class="result-card room-result"><small>YOUR ROOM</small><b id="result-room"></b><p>房型</p><strong id="result-room-type"></strong></article>
+        </div>
+        <article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article>
+        <button class="search-again" id="search-again" type="button">重新查詢</button>
+      </section>
     </section>
 
     <nav class="bottom-nav" aria-label="主要導覽">
