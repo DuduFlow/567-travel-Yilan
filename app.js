@@ -1,3 +1,35 @@
+/* ---- 固定介面：鎖直式、禁滑動、禁縮放 ---- */
+(function lockInterface() {
+  // 鎖定直式（安裝成 App / 全螢幕時生效，其餘瀏覽器以 CSS 提示擋畫面）
+  const lockPortrait = () => {
+    try { screen.orientation && screen.orientation.lock && screen.orientation.lock("portrait").catch(() => {}); } catch (e) {}
+  };
+  lockPortrait();
+  window.addEventListener("orientationchange", lockPortrait);
+
+  // 禁止整頁捲動與 iOS 橡皮筋回彈（輸入框內仍可正常操作游標）
+  document.addEventListener("touchmove", event => {
+    if (event.target instanceof Element && event.target.closest("input, textarea")) return;
+    event.preventDefault();
+  }, { passive: false });
+
+  // 禁止雙指縮放
+  ["gesturestart", "gesturechange", "gestureend"].forEach(type =>
+    document.addEventListener(type, event => event.preventDefault(), { passive: false })
+  );
+
+  // 禁止長按選單（輸入框除外）
+  document.addEventListener("contextmenu", event => {
+    if (!(event.target instanceof Element && event.target.closest("input, textarea"))) event.preventDefault();
+  });
+
+  // 鍵盤收起後把畫面拉回原位
+  const resetScroll = () => { window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; };
+  window.addEventListener("focusout", () => setTimeout(resetScroll, 60));
+  window.addEventListener("resize", resetScroll);
+  resetScroll();
+})();
+
 const cars = [
   ["陳怡靜","鄭占禮","鄭沐熙"],["陳意弘","許淑真","陳語恩","陳宇晨"],["郭仲凱","洪盈穎","郭陳瑞","郭瑞芯"],["王振華","MIKI"],["小徐","佳蓁","王銘宏","王閨蜜"],["白婕妤","周紋妤"],["蕭宇程","POTER","張友維","羅曼芸"],["邱揆程","橘子🍊","鍾怡婷","黃皓暐"],["吳佳臻","謝沐宸"],["范毓斌","傅佳旻"],["林宜潔","林子榆","楊宗衛"],["林姿含","張䕒心","林上智"]
 ];
@@ -10,7 +42,6 @@ let testReveal = false;
 function selectTab(tab) {
   document.querySelectorAll(".tab-page").forEach(page => page.classList.toggle("active", page.id === tab));
   document.querySelectorAll(".bottom-nav [data-tab]").forEach(button => button.classList.toggle("active", button.dataset.tab === tab));
-  window.scrollTo({top:0,behavior:"smooth"});
   document.body.classList.toggle("query-mode", tab === "group");
 }
 document.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => selectTab(button.dataset.tab)));
