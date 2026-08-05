@@ -91,14 +91,16 @@ function showTraveler(traveler) {
   document.getElementById("result-name").textContent = traveler.name;
   document.getElementById("result-car").textContent = `第 ${traveler.carIndex + 1} 車`;
   document.getElementById("result-leader").textContent = traveler.leader;
-  document.getElementById("result-leader-note").textContent = traveler.name === traveler.leader ? "你就是本車車長" : "";
+  document.getElementById("result-leader-note").textContent = traveler.name === traveler.leader ? "★ 本車車長" : "";
   document.getElementById("result-room").textContent = `第 ${traveler.roomIndex + 1} 房`;
   document.getElementById("result-room-type").textContent = traveler.room.type;
   const roommates = traveler.room.people.filter(person => person !== traveler.name);
   document.getElementById("result-roommates").innerHTML = roommates.length ? roommates.map(person => `<span>${person}</span>`).join("") : "<span>此房沒有其他室友</span>";
   document.getElementById("name-search").hidden = true;
   document.getElementById("query-result").hidden = false;
+  document.getElementById("group").classList.add("result-mode");
   document.getElementById("traveler-name").blur();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
 document.getElementById("name-search").addEventListener("submit", event => {
@@ -116,6 +118,7 @@ document.getElementById("name-search").addEventListener("submit", event => {
 document.getElementById("search-again").addEventListener("click", () => {
   document.getElementById("query-result").hidden = true;
   document.getElementById("name-search").hidden = false;
+  document.getElementById("group").classList.remove("result-mode");
   const input = document.getElementById("traveler-name");
   input.value = "";
   input.focus();
