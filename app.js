@@ -20,8 +20,9 @@
 })();
 
 const cars = [
-  ["陳怡靜","鄭占禮","鄭沐熙"],["陳意弘","許淑真","陳語恩","陳宇晨"],["郭仲凱","洪盈穎","郭陳瑞","郭瑞芯"],["王振華","MIKI"],["小徐","佳蓁","王銘宏","王閨蜜"],["白婕妤","周紋妤"],["蕭宇程","POTER","張友維","羅曼芸"],["邱揆程","橘子🍊","鍾怡婷","黃皓暐"],["吳佳臻","謝沐宸"],["范毓斌","傅佳旻"],["林宜潔","林子榆","楊宗衛"],["林姿含","張䕒心","林上智"]
+  ["陳怡靜","鄭占禮","鄭沐熙"],["陳意弘","許淑真","陳語恩","陳宇晨"],["郭仲凱","洪盈穎","郭宸睿","郭芮妡"],["王振華","王秀如"],["徐維鈴","吳佳蓁","王銘宏","王玉婷"],["白婕妤","周紋妤"],["蕭宇程","陳彥朋","張友維","羅曼芸"],["邱揆程","林宜臻","鍾怡婷","黃皓暐"],["吳佳臻","謝沐宸"],["范毓斌","傅佳旻"],["林宜潔","林子榆","楊宗衛"],["林姿含","張䕒心","林上智"]
 ];
+const roomAliases = {"郭宸睿":"郭陳瑞","郭芮妡":"郭瑞芯","王秀如":"MIKI","徐維鈴":"小徐","吳佳蓁":"佳蓁","王玉婷":"王閨蜜","陳彥朋":"POTER","林宜臻":"橘子🍊"};
 const rooms = [
   {type:"2+1 房",people:["陳怡靜","鄭占禮","鄭沐熙"]},{type:"2+1 房",people:["郭仲凱","洪盈穎","郭陳瑞","郭瑞芯"]},{type:"雙人房",people:["范毓斌","傅佳旻"]},{type:"雙人房",people:["小徐","佳蓁"]},{type:"雙人房",people:["張䕒心","林上智"]},{type:"雙人房",people:["張友維","羅曼芸"]},{type:"雙人房",people:["王振華","MIKI"]},{type:"雙人房",people:["邱揆程","橘子🍊"]},{type:"四＋1 房",people:["黃皓暐","楊宗衛","蕭宇程","POTER","林子榆"]},{type:"四人房",people:["陳意弘","許淑真","陳語恩","陳宇晨"]},{type:"四＋1 房",people:["林姿含","吳佳臻","謝沐宸","白婕妤","周紋妤"]},{type:"四人房",people:["王銘宏","王閨蜜","鍾怡婷","林宜潔"]}
 ];
@@ -61,6 +62,9 @@ function renderMission() {
   const unlockedCount = missions.filter(item => now >= Date.parse(item.unlockAt)).length;
   document.getElementById("home-progress-text").textContent = `${unlockedCount} / ${missions.length} 已揭曉`;
   document.querySelectorAll("#home-progress-dots i").forEach((dot,index) => dot.classList.toggle("unlocked", index < unlockedCount));
+  document.getElementById("trip-day-label").textContent = `DAY ${mission.day} · ${mission.date}`;
+  document.getElementById("trip-progress-label").textContent = `NEXT MISSION · ${unlockedCount} / ${missions.length}`;
+  document.querySelectorAll("#trip-progress-dots i").forEach((dot,index) => dot.classList.toggle("unlocked", index < unlockedCount));
   const dayMissionNumber = missions.filter((item,index) => item.day === mission.day && index <= missionIndex).length;
   const card = document.getElementById("mission-card");
   card.className = `mystery-card ${unlocked ? "unlocked reveal" : "locked"}`;
@@ -119,9 +123,10 @@ function findTraveler(input) {
   const name = allNames.find(person => normalizeName(person) === target);
   if (!name) return null;
   const carIndex = cars.findIndex(group => group.includes(name));
-  const roomIndex = rooms.findIndex(room => room.people.includes(name));
+  const roomName = roomAliases[name] || name;
+  const roomIndex = rooms.findIndex(room => room.people.includes(roomName));
   if (carIndex < 0 || roomIndex < 0) return null;
-  return { name, carIndex, roomIndex, leader: cars[carIndex][0], room: rooms[roomIndex] };
+  return { name, roomName, carIndex, roomIndex, leader: cars[carIndex][0], room: rooms[roomIndex] };
 }
 
 function showTraveler(traveler) {
@@ -132,7 +137,9 @@ function showTraveler(traveler) {
   document.getElementById("result-leader-note").textContent = traveler.name === traveler.leader ? "★ 本車車長" : "";
   document.getElementById("result-room").textContent = `第 ${traveler.roomIndex + 1} 房`;
   document.getElementById("result-room-type").textContent = traveler.room.type;
-  const roommates = traveler.room.people.filter(person => person !== traveler.name);
+  const carmates = cars[traveler.carIndex].filter(person => person !== traveler.name);
+  document.getElementById("result-carmates").innerHTML = carmates.length ? carmates.map(person => `<span>${person}</span>`).join("") : "<span>此車沒有其他夥伴</span>";
+  const roommates = traveler.room.people.filter(person => person !== traveler.roomName);
   document.getElementById("result-roommates").innerHTML = roommates.length ? roommates.map(person => `<span>${person}</span>`).join("") : "<span>此房沒有其他室友</span>";
   document.getElementById("name-search").hidden = true;
   document.getElementById("query-result").hidden = false;
@@ -140,6 +147,24 @@ function showTraveler(traveler) {
   document.getElementById("traveler-name").blur();
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
+function renderCarDirectory(keyword = "") {
+  const target = normalizeName(keyword);
+  document.getElementById("car-directory").innerHTML = cars.map((people,carIndex) => {
+    const matches = target ? people.filter(person => normalizeName(person).includes(target)) : people;
+    if (!matches.length) return "";
+    return `<section><b>第 ${carIndex + 1} 車<small>${people[0]} · 車長</small></b><div>${matches.map(person => `<button type="button" data-traveler="${person}">${person}</button>`).join("")}</div></section>`;
+  }).join("") || '<p class="directory-empty">沒有符合的姓名</p>';
+}
+
+document.getElementById("traveler-name").addEventListener("input", event => renderCarDirectory(event.target.value));
+document.getElementById("car-directory").addEventListener("click", event => {
+  const button = event.target.closest("button[data-traveler]");
+  if (!button) return;
+  const traveler = findTraveler(button.dataset.traveler);
+  if (traveler) showTraveler(traveler);
+});
+renderCarDirectory();
 
 document.getElementById("name-search").addEventListener("submit", event => {
   event.preventDefault();

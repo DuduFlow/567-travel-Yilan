@@ -26,12 +26,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="style.css?v=567mystery-v14-20260805">
+  <link rel="stylesheet" href="style.css?v=567mystery-v15-20260806">
 </head>
 <body>
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-    <header class="topbar"><span class="build-tag" id="build-tag">v14-20260805</span><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
+    <header class="topbar"><span class="build-tag" id="build-tag">v15-20260806</span><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
 
     <section class="content tab-page active" id="home">
       <div class="hero-photo"><img src="assets/home-mystery-quest.png" alt="567 Mystery Quest，未知才是旅程最精彩的開始"></div>
@@ -39,7 +39,7 @@
     </section>
 
     <section class="content tab-page" id="trip">
-      <div class="page-intro"><p class="eyebrow">NEXT MISSION</p><h1>下一站，<br><em>時間到了才知道。</em></h1><p>示範任務｜9月4日第一站</p></div>
+      <div class="trip-overview"><div><small id="trip-day-label">DAY 1 · 09.04</small><b id="trip-progress-label">NEXT MISSION · 0 / 7</b></div><div class="trip-progress-dots" id="trip-progress-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
       <div class="reveal-stage">
         <div class="mystery-card locked" id="mission-card" aria-live="polite">
           <div class="mission-meta" id="mission-meta">DAY 1 · MISSION 01</div>
@@ -63,6 +63,7 @@
         <label for="traveler-name">輸入你的姓名</label>
         <div class="search-field"><input id="traveler-name" name="name" type="text" autocomplete="name" inputmode="text" placeholder="例如：陳怡靜" required><button type="submit">查詢</button></div>
         <small>請輸入分房分車表上的姓名</small>
+        <div class="car-directory" id="car-directory" aria-label="依車次選擇姓名"></div>
       </form>
       <div class="query-message" id="query-message" role="status" hidden></div>
       <section class="query-result" id="query-result" aria-live="polite" hidden>
@@ -71,7 +72,7 @@
           <article class="result-card car-result"><small>搭乘車輛</small><b id="result-car"></b><p>車長</p><strong id="result-leader"></strong><em id="result-leader-note"></em></article>
           <article class="result-card room-result"><small>住宿房間</small><b id="result-room"></b><p>房型</p><strong id="result-room-type"></strong></article>
         </div>
-        <article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article>
+        <div class="travel-companions"><article class="companions-card"><small>CAR MATES</small><h2>同車夥伴</h2><div id="result-carmates"></div></article><article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article></div>
         <button class="search-again" id="search-again" type="button">重新查詢</button></div>
       </section>
     </section>
@@ -83,7 +84,7 @@
     </nav>
   </main>
   <div class="rotate-guard" aria-hidden="true"><div><span>⟳</span><b>請直立使用</b><small>567 神秘小旅行僅支援直式畫面</small></div></div>
-  <script src="app.js?v=567mystery-v14-20260805"></script>
-  <script src="autoupdate.js?v=567mystery-v14-20260805"></script>
+  <script src="app.js?v=567mystery-v15-20260806"></script>
+  <script src="autoupdate.js?v=567mystery-v15-20260806"></script>
 </body>
 </html>
