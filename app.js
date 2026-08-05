@@ -11,6 +11,7 @@ function selectTab(tab) {
   document.querySelectorAll(".tab-page").forEach(page => page.classList.toggle("active", page.id === tab));
   document.querySelectorAll(".bottom-nav [data-tab]").forEach(button => button.classList.toggle("active", button.dataset.tab === tab));
   window.scrollTo({top:0,behavior:"smooth"});
+  document.body.classList.toggle("query-mode", tab === "group");
 }
 document.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => selectTab(button.dataset.tab)));
 
@@ -66,6 +67,7 @@ function showTraveler(traveler) {
   document.getElementById("result-roommates").innerHTML = roommates.length ? roommates.map(person => `<span>${person}</span>`).join("") : "<span>此房沒有其他室友</span>";
   document.getElementById("name-search").hidden = true;
   document.getElementById("query-result").hidden = false;
+  document.getElementById("traveler-name").blur();
 }
 
 document.getElementById("name-search").addEventListener("submit", event => {

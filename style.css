@@ -9,9 +9,15 @@ button:focus-visible, summary:focus-visible { outline:3px solid #e1a95b; outline
 .ambient-one { width:240px; height:240px; right:-140px; top:120px; background:#d9e8df; }
 .ambient-two { width:180px; height:180px; left:-120px; top:440px; background:#d7e6e5; }
 .topbar { position:absolute; z-index:12; inset:0 0 auto; height:calc(72px + env(safe-area-inset-top)); display:flex; align-items:flex-end; justify-content:space-between; padding:0 23px 13px; }
-.brand { display:flex; align-items:center; gap:8px; border:0; background:none; padding:0; cursor:pointer; }
-.brand span { background:var(--ink); color:#fff; font-weight:900; letter-spacing:-1px; border-radius:9px; padding:6px 8px; font-size:16px; }
-.brand b { letter-spacing:.13em; font-size:10px; white-space:nowrap; }
+.brand { height:42px; display:flex; align-items:stretch; gap:10px; border:0; background:none; padding:0; cursor:pointer; text-align:left; }
+.brand .brand-number { position:relative; min-width:61px; padding:7px 10px 6px; display:grid; place-items:center; overflow:hidden; color:#fff; background:linear-gradient(145deg,#17352c,#285849); clip-path:polygon(0 0,88% 0,100% 18%,100% 100%,0 100%); border-radius:11px 5px 11px 11px; font-family:Georgia,"Times New Roman",serif; font-size:20px; font-weight:900; letter-spacing:-.04em; line-height:1; box-shadow:0 7px 15px rgba(23,53,44,.18); }
+.brand .brand-number:after { content:""; position:absolute; left:8px; right:8px; bottom:5px; height:1px; background:linear-gradient(90deg,#d49c51,transparent); opacity:.85; }
+.brand .brand-number i { position:absolute; top:4px; right:7px; color:#e6bc75; font:normal 8px/1 sans-serif; }
+.brand .brand-wordmark { padding:1px 0 0; display:grid; grid-template-columns:auto auto; grid-template-rows:15px 15px 9px; column-gap:5px; align-content:center; color:var(--ink); background:none; }
+.brand .brand-wordmark b,.brand .brand-wordmark strong { font-size:11px; line-height:1; letter-spacing:.16em; white-space:nowrap; }
+.brand .brand-wordmark b { grid-column:1/3; }
+.brand .brand-wordmark strong { grid-column:1/3; font-weight:900; letter-spacing:.31em; }
+.brand .brand-wordmark small { grid-column:1/3; color:#819087; font-size:6px; font-weight:800; letter-spacing:.23em; white-space:nowrap; }
 .top-actions { display:flex; align-items:center; gap:8px; }
 .refresh-button { width:32px; height:32px; padding:0; border:1px solid rgba(23,53,44,.12); border-radius:50%; display:grid; place-items:center; color:var(--ink); background:rgba(255,253,248,.8); cursor:pointer; font-size:18px; line-height:1; }
 .refresh-button.refreshing { animation:refreshSpin .65s linear infinite; }
@@ -59,3 +65,36 @@ button:focus-visible, summary:focus-visible { outline:3px solid #e1a95b; outline
 @media (max-height:760px) { .hero h1 { font-size:31px; }.landscape { height:285px; margin-top:10px; }.home-secret-note { margin-top:12px; padding:12px 14px; }.gentle-note { margin-top:13px; } }
 @media (min-width:700px) { .app-shell { border-radius:0; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+
+/* UX refinement: flexible home canvas, visible journey progress, unified personal card. */
+#home.active { display:flex; flex-direction:column; }
+#home .hero { min-height:0; flex:1; display:flex; flex-direction:column; }
+#home .landscape { min-height:230px; height:auto; flex:1; }
+.home-secret-note { margin-top:14px; padding:13px 15px; }
+.secret-progress { min-width:0; flex:1; }
+.progress-dots { display:grid; grid-template-columns:repeat(8,1fr); gap:4px; margin-top:9px; }
+.progress-dots i { height:4px; border-radius:99px; background:#d7dfd8; }
+.progress-dots i.unlocked { background:#d49c51; }
+.home-cta { margin-top:10px; }
+.personal-trip-card { overflow:hidden; border-radius:25px; background:var(--paper); box-shadow:0 15px 38px rgba(39,67,57,.12); }
+.personal-trip-card .result-welcome { margin-bottom:0; border-radius:0; }
+.personal-trip-card .result-grid { gap:0; padding:8px 10px 0; }
+.personal-trip-card .result-card { min-height:132px; border-radius:0; background:transparent; box-shadow:none; }
+.personal-trip-card .result-card:first-child { border-right:1px solid #e4e9e3; }
+.personal-trip-card .roommates-card { margin:0 10px 10px; padding:16px; border-radius:18px; }
+@media (max-height:760px) { #home .landscape { min-height:210px; height:auto; }.hero h1 { font-size:29px; }.home-secret-note { margin-top:9px; padding:10px 13px; }.home-cta { margin-top:8px; padding:11px 15px; } }
+@media (max-height:560px), (max-width:360px) { body.query-mode .content#group { overflow-y:auto; overscroll-behavior:contain; padding-bottom:12px; } }
+
+/* Image-led home: the artwork carries all branding and headline content. */
+.minimal-topbar { height:calc(58px + env(safe-area-inset-top)); justify-content:flex-end; align-items:flex-end; padding:0 18px 6px; pointer-events:none; }
+.minimal-topbar .refresh-button { pointer-events:auto; color:#fff; border-color:rgba(255,255,255,.35); background:rgba(19,46,40,.58); backdrop-filter:blur(12px); box-shadow:0 6px 18px rgba(14,39,32,.2); }
+#home.content { inset:env(safe-area-inset-top) 0 calc(105px + env(safe-area-inset-bottom)); padding:8px 15px; }
+#home .hero-photo { min-height:0; flex:1; overflow:hidden; border-radius:28px; background:#17352c; box-shadow:0 18px 38px rgba(24,56,46,.22); }
+#home .hero-photo img { width:100%; height:100%; display:block; object-fit:cover; object-position:center center; }
+#home .clue-panel { flex:none; margin-top:11px; padding:11px 14px; border-color:rgba(47,78,66,.1); background:rgba(255,253,248,.92); box-shadow:0 7px 20px rgba(39,67,57,.07); }
+.clue-panel .secret-progress p { display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; align-items:end; column-gap:8px; }
+.clue-panel .secret-progress p small { grid-column:1; grid-row:1; margin:0 0 2px; color:#a4753c; font-size:7px; font-weight:900; letter-spacing:.15em; }
+.clue-panel .secret-progress p b { grid-column:1; grid-row:2; font-size:12px; }
+.clue-panel .secret-progress p em { grid-column:2; grid-row:1/3; align-self:center; color:#7c8981; font-size:8px; font-style:normal; white-space:nowrap; }
+#home .home-cta { flex:none; }
+@media (max-width:390px) { .clue-panel .secret-progress p em { display:none; } }

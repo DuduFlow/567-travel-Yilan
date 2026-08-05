@@ -29,17 +29,12 @@
 <body>
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-    <header class="topbar"><button class="brand" data-tab="home" aria-label="回到首頁"><span>567</span><b>MYSTERY QUEST</b></button><div class="top-actions"><div class="trip-date">09.04–09.05</div><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></div></header>
+    <header class="topbar minimal-topbar"><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
 
     <section class="content tab-page active" id="home">
-      <div class="hero">
-        <p class="eyebrow">567 · MYSTERY QUEST</p>
-        <h1>未知，才是旅程<br><em>最精彩的開始。</em></h1>
-        <div class="landscape" aria-hidden="true"><div class="sun"></div><div class="mountain back"></div><div class="mountain front"></div><div class="river"></div><span class="landscape-label">THE SECRET IS WAITING · 2026</span></div>
-      </div>
-      <div class="home-secret-note"><span>✦</span><p><b>8 個未知目的地</b><small>每一站，都在出發前一小時揭曉。</small></p></div>
-      <button class="home-cta" data-tab="trip">等待第一個驚喜 <span>›</span></button>
-      <p class="gentle-note">不用急著知道答案，期待本身就是旅行的一部分。</p>
+      <div class="hero-photo"><img src="assets/home-mystery-quest.png" alt="567 Mystery Quest，未知才是旅程最精彩的開始"></div>
+      <div class="home-secret-note clue-panel"><span>✦</span><div class="secret-progress"><p><small>目前線索</small><b>8 個未知目的地</b><em>每一站，都在出發前一小時揭曉</em></p><div class="progress-dots" aria-label="已揭曉零個，共八個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+      <button class="home-cta" data-tab="trip">查看下一站倒數 <span>›</span></button>
     </section>
 
     <section class="content tab-page" id="trip">
@@ -69,12 +64,12 @@
       </form>
       <div class="query-message" id="query-message" role="status" hidden></div>
       <section class="query-result" id="query-result" aria-live="polite" hidden>
-        <div class="result-welcome"><span>旅</span><p><small>WELCOME ABOARD</small><strong id="result-name"></strong></p></div>
+        <div class="personal-trip-card"><div class="result-welcome"><span>旅</span><p><small>MY TRIP CARD</small><strong id="result-name"></strong></p></div>
         <div class="result-grid">
-          <article class="result-card car-result"><small>YOUR CAR</small><b id="result-car"></b><p>車長</p><strong id="result-leader"></strong><em id="result-leader-note"></em></article>
-          <article class="result-card room-result"><small>YOUR ROOM</small><b id="result-room"></b><p>房型</p><strong id="result-room-type"></strong></article>
+          <article class="result-card car-result"><small>搭乘車輛</small><b id="result-car"></b><p>車長</p><strong id="result-leader"></strong><em id="result-leader-note"></em></article>
+          <article class="result-card room-result"><small>住宿房間</small><b id="result-room"></b><p>房型</p><strong id="result-room-type"></strong></article>
         </div>
-        <article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article>
+        <article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article></div>
         <button class="search-again" id="search-again" type="button">重新查詢</button>
       </section>
     </section>
