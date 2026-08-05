@@ -4,10 +4,16 @@
 
    ★ 改版時：這裡的 BUILD 要跟 sw.js 的 VERSION 改成同一個字串。 */
 (() => {
-  const BUILD = "567mystery-v1-20260805";
+  const BUILD = "567mystery-v3-20260805";
 
   const src  = (document.currentScript && document.currentScript.src) || "";
   const root = src.replace(/autoupdate\.js.*$/, "") || "./";
+
+  /* 把版本標記寫進畫面右上角，方便一眼確認手機載到的是哪一版 */
+  document.addEventListener("DOMContentLoaded", () => {
+    const tag = document.getElementById("build-tag");
+    if (tag) tag.textContent = BUILD.replace(/^567mystery-/, "");
+  });
 
   /* 註冊 service worker */
   if ("serviceWorker" in navigator) {

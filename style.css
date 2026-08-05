@@ -52,9 +52,14 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 /* --------------------------------------------------------------------------
    3. App shell
    -------------------------------------------------------------------------- */
+/* 用 absolute + inset:0 貼齊已 position:fixed 的 body，
+   才能涵蓋 home indicator 安全區。
+   （不可用 100dvh：iOS standalone 下 100dvh 不含底部安全區，
+     會讓外框比螢幕矮一截，導覽列因此浮在半空） */
 .app-shell {
-  position:relative; width:100%; max-width:480px; margin:0 auto;
-  height:100dvh; max-height:100dvh; overflow:hidden;
+  position:absolute; inset:0;
+  width:100%; max-width:480px; margin:0 auto;
+  overflow:hidden;
   background:var(--cream);
   box-shadow:0 0 70px rgba(23,53,44,.16);
   touch-action:none;
@@ -72,8 +77,16 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
   position:absolute; z-index:12; inset:0 0 auto;
   height:calc(58px + env(safe-area-inset-top));
   padding:0 18px 6px;
-  display:flex; align-items:flex-end; justify-content:flex-end;
+  display:flex; align-items:flex-end; justify-content:space-between;
   pointer-events:none;
+}
+/* 版本標記：用來一眼確認手機是否已載入新版 */
+.build-tag {
+  padding:5px 9px; border-radius:9px;
+  color:#f0d18f; font-size:9px; font-weight:800; letter-spacing:.08em;
+  border:1px solid rgba(255,255,255,.28);
+  background:rgba(19,46,40,.58);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
 }
 .refresh-button {
   width:32px; height:32px; padding:0; border-radius:50%;
