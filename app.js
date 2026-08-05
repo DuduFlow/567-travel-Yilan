@@ -7,12 +7,6 @@
   lockPortrait();
   window.addEventListener("orientationchange", lockPortrait);
 
-  // 禁止整頁捲動與 iOS 橡皮筋回彈（輸入框內仍可正常操作游標）
-  document.addEventListener("touchmove", event => {
-    if (event.target instanceof Element && event.target.closest("input, textarea")) return;
-    event.preventDefault();
-  }, { passive: false });
-
   // 禁止雙指縮放
   ["gesturestart", "gesturechange", "gestureend"].forEach(type =>
     document.addEventListener(type, event => event.preventDefault(), { passive: false })
@@ -23,11 +17,6 @@
     if (!(event.target instanceof Element && event.target.closest("input, textarea"))) event.preventDefault();
   });
 
-  // 鍵盤收起後把畫面拉回原位
-  const resetScroll = () => { window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; };
-  window.addEventListener("focusout", () => setTimeout(resetScroll, 60));
-  window.addEventListener("resize", resetScroll);
-  resetScroll();
 })();
 
 const cars = [
@@ -36,8 +25,16 @@ const cars = [
 const rooms = [
   {type:"2+1 房",people:["陳怡靜","鄭占禮","鄭沐熙"]},{type:"2+1 房",people:["郭仲凱","洪盈穎","郭陳瑞","郭瑞芯"]},{type:"雙人房",people:["范毓斌","傅佳旻"]},{type:"雙人房",people:["小徐","佳蓁"]},{type:"雙人房",people:["張䕒心","林上智"]},{type:"雙人房",people:["張友維","羅曼芸"]},{type:"雙人房",people:["王振華","MIKI"]},{type:"雙人房",people:["邱揆程","橘子🍊"]},{type:"四＋1 房",people:["黃皓暐","楊宗衛","蕭宇程","POTER","林子榆"]},{type:"四人房",people:["陳意弘","許淑真","陳語恩","陳宇晨"]},{type:"四＋1 房",people:["林姿含","吳佳臻","謝沐宸","白婕妤","周紋妤"]},{type:"四人房",people:["王銘宏","王閨蜜","鍾怡婷","林宜潔"]}
 ];
-const unlockAt = new Date("2026-09-04T11:00:00+08:00").getTime();
-let testReveal = false;
+const missions = [
+  {day:1,date:"09.04",unlockAt:"2026-09-04T11:00:00+08:00",key:"烤雞",icon:"食",title:"番割田甕缸雞",subtitle:"用美食開啟宜蘭小旅行",time:"集合時間｜12:00",prep:"準備｜帶著空空的胃",clues:["炭火香氣會先替我們帶路","在甕裡慢慢變成金黃色","午餐先留一點空間"],map:"https://maps.app.goo.gl/Wyzm8RsR2wq532oe7"},
+  {day:1,date:"09.04",unlockAt:"2026-09-04T13:00:00+08:00",key:"玩水",icon:"水",title:"武荖坑林道",subtitle:"山林裡的清涼冒險",time:"行程｜午後戲水",prep:"準備｜拖鞋、毛巾與替換衣物",clues:["下一站可能會弄濕鞋子","山林裡藏著天然冷氣","人多時往第 3～4 區前進"],map:"https://maps.app.goo.gl/baB9JcnScgKMNcE2A"},
+  {day:1,date:"09.04",unlockAt:"2026-09-04T16:00:00+08:00",key:"採購",icon:"購",title:"喜互惠生鮮超市維揚店",subtitle:"旅途中的補給採購任務",time:"行程｜補給與自由採購",prep:"準備｜購物袋與零錢",clues:["補給時間就快到了","尋找想帶回家的宜蘭味","記得先留一點行李空間"],map:"https://share.google/dwdt97eOk8M8L5iCL"},
+  {day:1,date:"09.04",unlockAt:"2026-09-04T18:00:00+08:00",key:"民宿",icon:"宿",title:"真善美精品民宿",subtitle:"今晚一起好好休息",time:"行程｜入住與分房",prep:"準備｜查看查詢頁的房間與室友",clues:["這裡是今晚的落腳處","房間與室友都已經安排好","先放下行李再繼續冒險"],map:"https://maps.app.goo.gl/DHjGxREJJBrxrXEx6"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T08:00:00+08:00",key:"採蔥",icon:"蔥",title:"星寶蔥體驗農場",subtitle:"親手完成一份宜蘭蔥體驗",time:"行程｜田園體驗",prep:"準備｜防曬、好走的鞋",clues:["田裡藏著綠色寶藏","今天可能會沾上一點泥土","主角是宜蘭最有名的辛香滋味"],map:"https://maps.app.goo.gl/3LdMG3n4wv84r2s19"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T12:00:00+08:00",key:"狐狸",icon:"狐",title:"宜蘭狐狸村",subtitle:"拜訪毛茸茸的神秘居民",time:"行程｜園區探訪",prep:"準備｜相機與輕柔的腳步",clues:["有人正用毛茸茸的尾巴等你","靠近時記得放慢腳步","相機可以先準備好了"],map:"https://maps.app.goo.gl/GigQgkMxhXHn8Scd6"},
+  {day:2,date:"09.05",unlockAt:"2026-09-05T17:00:00+08:00",key:"晚宴",icon:"宴",title:"馫宴創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["今天的故事將在餐桌上收尾","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/GqyNBGaTzk5FJDZm9"}
+];
+let testMissionIndex = null;
 
 function selectTab(tab) {
   document.querySelectorAll(".tab-page").forEach(page => page.classList.toggle("active", page.id === tab));
@@ -51,23 +48,49 @@ function countdownParts(ms) {
   return {days:Math.floor(total/86400),hours:Math.floor((total%86400)/3600),minutes:Math.floor((total%3600)/60),seconds:total%60};
 }
 function renderMission() {
-  const unlocked = testReveal || Date.now() >= unlockAt;
+  const previewing = testMissionIndex !== null;
+  const now = Date.now();
+  let defaultIndex = missions.findIndex(item => now < Date.parse(item.unlockAt));
+  if (defaultIndex < 0) defaultIndex = missions.length - 1;
+  const missionIndex = previewing ? testMissionIndex : defaultIndex;
+  const mission = missions[missionIndex];
+  const missionUnlockAt = Date.parse(mission.unlockAt);
+  const actualUnlocked = now >= missionUnlockAt;
+  const unlocked = previewing || actualUnlocked;
+  const unlockedCount = missions.filter(item => now >= Date.parse(item.unlockAt)).length;
+  document.getElementById("home-progress-text").textContent = `${unlockedCount} / ${missions.length} 已揭曉`;
+  document.querySelectorAll("#home-progress-dots i").forEach((dot,index) => dot.classList.toggle("unlocked", index < unlockedCount));
+  const dayMissionNumber = missions.filter((item,index) => item.day === mission.day && index <= missionIndex).length;
   const card = document.getElementById("mission-card");
   card.className = `mystery-card ${unlocked ? "unlocked reveal" : "locked"}`;
-  document.getElementById("mission-icon").textContent = unlocked ? "食" : "?";
+  document.getElementById("mission-icon").textContent = unlocked ? mission.icon : "?";
   document.getElementById("mission-status").textContent = unlocked ? "MISSION UNLOCKED" : "UNLOCKS ONE HOUR BEFORE";
-  document.getElementById("mission-title").textContent = unlocked ? "番割田甕缸雞" : "目的地暫時保密";
+  document.getElementById("mission-title").textContent = unlocked ? mission.title : "目的地暫時保密";
+  document.getElementById("mission-meta").textContent = `DAY ${mission.day} · ${mission.date} · MISSION ${String(dayMissionNumber).padStart(2,"0")}`;
   document.getElementById("locked-content").hidden = unlocked;
   document.getElementById("revealed-content").hidden = !unlocked;
-  const test = document.getElementById("test-reveal");
-  test.classList.toggle("active", testReveal);
-  test.innerHTML = testReveal ? '<span>↺</span><p><b>恢復倒數畫面</b><small>回到尚未解鎖狀態</small></p>' : '<span>✦</span><p><b>測試：模擬時間到</b><small>按下後查看正式揭曉效果</small></p>';
+  document.getElementById("mission-clues").innerHTML = mission.clues.map((clue,index) => `<p><span>CLUE ${String(index + 1).padStart(2,"0")}</span>${clue}</p>`).join("");
+  document.getElementById("mission-subtitle").textContent = mission.subtitle;
+  document.getElementById("mission-time").textContent = mission.time;
+  document.getElementById("mission-prep").textContent = mission.prep;
+  const map = document.getElementById("mission-map");
+  map.href = mission.map;
+  document.querySelectorAll(".mission-test-grid button").forEach((button,index) => button.classList.toggle("active", index === testMissionIndex));
+  document.getElementById("reset-test").hidden = !previewing;
   if (!unlocked) {
-    const t = countdownParts(unlockAt - Date.now());
+    const t = countdownParts(missionUnlockAt - now);
     document.getElementById("countdown").innerHTML = `${t.days ? `<span><b>${String(t.days).padStart(2,"0")}</b><small>天</small></span>` : ""}<span><b>${String(t.hours).padStart(2,"0")}</b><small>時</small></span><em>:</em><span><b>${String(t.minutes).padStart(2,"0")}</b><small>分</small></span><em>:</em><span><b>${String(t.seconds).padStart(2,"0")}</b><small>秒</small></span>`;
   }
 }
-document.getElementById("test-reveal").addEventListener("click", () => { testReveal = !testReveal; renderMission(); });
+document.getElementById("mission-test-grid").innerHTML = [1,2].map(day => `<section><b>DAY ${day}<small>${day === 1 ? "09.04" : "09.05"}</small></b><div>${missions.map((mission,index) => mission.day === day ? `<button type="button" data-mission-index="${index}"><span>${mission.icon}</span>${mission.key}</button>` : "").join("")}</div></section>`).join("");
+document.getElementById("mission-test-grid").addEventListener("click", event => {
+  const button = event.target.closest("button[data-mission-index]");
+  if (!button) return;
+  testMissionIndex = Number(button.dataset.missionIndex);
+  renderMission();
+  document.getElementById("mission-card").scrollIntoView({behavior:"smooth",block:"center"});
+});
+document.getElementById("reset-test").addEventListener("click", () => { testMissionIndex = null; renderMission(); });
 setInterval(renderMission,1000); renderMission();
 
 function normalizeName(value) {

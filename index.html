@@ -26,32 +26,33 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="style.css?v=567mystery-v10-20260805">
+  <link rel="stylesheet" href="style.css?v=567mystery-v12-20260805">
 </head>
 <body>
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-    <header class="topbar"><span class="build-tag" id="build-tag">v10-20260805</span><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
+    <header class="topbar"><span class="build-tag" id="build-tag">v12-20260805</span><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
 
     <section class="content tab-page active" id="home">
       <div class="hero-photo"><img src="assets/home-mystery-quest.png" alt="567 Mystery Quest，未知才是旅程最精彩的開始"></div>
-      <button class="clue-panel" data-tab="trip" type="button" aria-label="查看下一站倒數"><span class="clue-spark">✦</span><div class="secret-progress"><p><small>目前線索</small><b>0 / 8 已揭曉</b><em>下一站將於出發前一小時揭曉</em></p><div class="progress-dots" aria-label="已揭曉零個，共八個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><i class="clue-arrow">›</i></button>
+      <button class="clue-panel" data-tab="trip" type="button" aria-label="查看下一站倒數"><span class="clue-spark">✦</span><div class="secret-progress"><p><small>目前線索</small><b id="home-progress-text">0 / 7 已揭曉</b><em>下一站將於出發前一小時揭曉</em></p><div class="progress-dots" id="home-progress-dots" aria-label="已揭曉零個，共七個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><i class="clue-arrow">›</i></button>
     </section>
 
     <section class="content tab-page" id="trip">
       <div class="page-intro"><p class="eyebrow">NEXT MISSION</p><h1>下一站，<br><em>時間到了才知道。</em></h1><p>示範任務｜9月4日第一站</p></div>
       <div class="reveal-stage">
         <div class="mystery-card locked" id="mission-card" aria-live="polite">
+          <div class="mission-meta" id="mission-meta">DAY 1 · MISSION 01</div>
           <div class="mystery-orbit"><span id="mission-icon">?</span><i></i></div>
           <small id="mission-status">UNLOCKS ONE HOUR BEFORE</small>
           <strong id="mission-title">目的地暫時保密</strong>
           <div id="locked-content">
             <div class="countdown" id="countdown" aria-label="距離解鎖倒數"></div>
-            <p class="clue"><span>CLUE 01</span>香氣會先替我們帶路</p>
+            <div class="clue-list" id="mission-clues"></div>
           </div>
-          <div class="revealed-details" id="revealed-content" hidden><p>用美食開啟宜蘭小旅行</p><span>集合時間｜12:00</span><span>準備｜帶著空空的胃</span></div>
+          <div class="revealed-details" id="revealed-content" hidden><p id="mission-subtitle"></p><span id="mission-time"></span><span id="mission-prep"></span><a class="map-link" id="mission-map" href="#" target="_blank" rel="noopener noreferrer">在 Google Maps 開啟　↗</a></div>
         </div>
-        <button class="test-button" id="test-reveal"><span>✦</span><p><b>測試：模擬時間到</b><small>按下後查看正式揭曉效果</small></p></button>
+        <div class="mission-tests"><small>任務揭曉測試</small><div class="mission-test-grid" id="mission-test-grid"></div><button class="reset-test" id="reset-test" type="button">恢復倒數畫面</button></div>
       </div>
       <div class="tip-card"><span>RULE</span><p>正式上線時可移除測試按鈕，時間一到就會自動揭曉。</p></div>
     </section>
@@ -82,7 +83,7 @@
     </nav>
   </main>
   <div class="rotate-guard" aria-hidden="true"><div><span>⟳</span><b>請直立使用</b><small>567 神秘小旅行僅支援直式畫面</small></div></div>
-  <script src="app.js?v=567mystery-v10-20260805"></script>
-  <script src="autoupdate.js?v=567mystery-v10-20260805"></script>
+  <script src="app.js?v=567mystery-v12-20260805"></script>
+  <script src="autoupdate.js?v=567mystery-v12-20260805"></script>
 </body>
 </html>
