@@ -254,11 +254,17 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .mission-test-grid section { display:grid; grid-template-columns:58px 1fr; gap:7px; align-items:center; }
 .mission-test-grid section > b { display:flex; flex-direction:column; color:#355648; font-size:9px; letter-spacing:.08em; }
 .mission-test-grid section > b small { margin-top:2px; color:#aa8550; font-size:7px; letter-spacing:.04em; }
-.mission-test-grid section > div { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; }
+.mission-test-grid section > div { min-width:0; display:flex; align-items:center; gap:4px; }
 .mission-test-grid button { min-width:0; min-height:48px; padding:5px 3px; border:1px solid #ead9b4; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#6e644f; background:#fffdf7; font-size:8px; font-weight:800; cursor:pointer; }
+.mission-test-grid button[data-mission-index] { flex:1 1 0; }
 .mission-test-grid button span { color:#b4833e; font-family:"Songti TC",serif; font-size:14px; font-weight:900; }
 .mission-test-grid button.active { color:#fff; border-color:#315c4b; background:#315c4b; box-shadow:0 6px 14px rgba(33,73,59,.18); }
 .mission-test-grid button.active span { color:#f2d597; }
+.mission-test-grid .mystery-trigger { position:relative; flex:0 0 27px; width:27px; min-height:27px; height:27px; padding:0; border-color:#d2ae69; border-radius:50%; color:#785d31; background:#f3d892; box-shadow:0 3px 8px rgba(126,91,41,.14); }
+.mission-test-grid .mystery-trigger:before,.mission-test-grid .mystery-trigger:after { content:""; position:absolute; top:50%; width:4px; height:1px; background:#d2ae69; }
+.mission-test-grid .mystery-trigger:before { right:100%; }.mission-test-grid .mystery-trigger:after { left:100%; }
+.mission-test-grid .mystery-trigger span { color:#5e4829; font-size:11px; }
+.mission-test-grid .mystery-trigger.active { border-color:#e4bc65; background:#b88438; box-shadow:0 0 0 3px rgba(212,156,81,.18); }
 .reset-test { width:100%; margin-top:7px; padding:8px; border:0; border-radius:10px; color:#587063; background:#e8efe9; font-size:9px; font-weight:800; cursor:pointer; }
 
 .tip-card {

@@ -35,6 +35,7 @@ const missions = [
   {day:2,date:"09.05",unlockAt:"2026-09-05T17:00:00+08:00",key:"晚宴",icon:"宴",title:"馫宴創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["今天的故事將在餐桌上收尾","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/GqyNBGaTzk5FJDZm9"}
 ];
 let testMissionIndex = null;
+let testLockedPreview = false;
 
 function selectTab(tab) {
   document.querySelectorAll(".tab-page").forEach(page => page.classList.toggle("active", page.id === tab));
@@ -56,7 +57,7 @@ function renderMission() {
   const mission = missions[missionIndex];
   const missionUnlockAt = Date.parse(mission.unlockAt);
   const actualUnlocked = now >= missionUnlockAt;
-  const unlocked = previewing || actualUnlocked;
+  const unlocked = previewing ? !testLockedPreview : actualUnlocked;
   const unlockedCount = missions.filter(item => now >= Date.parse(item.unlockAt)).length;
   document.getElementById("home-progress-text").textContent = `${unlockedCount} / ${missions.length} 已揭曉`;
   document.querySelectorAll("#home-progress-dots i").forEach((dot,index) => dot.classList.toggle("unlocked", index < unlockedCount));
@@ -75,22 +76,36 @@ function renderMission() {
   document.getElementById("mission-prep").textContent = mission.prep;
   const map = document.getElementById("mission-map");
   map.href = mission.map;
-  document.querySelectorAll(".mission-test-grid button").forEach((button,index) => button.classList.toggle("active", index === testMissionIndex));
+  document.querySelectorAll(".mission-test-grid button[data-mission-index]").forEach(button => button.classList.toggle("active", !testLockedPreview && Number(button.dataset.missionIndex) === testMissionIndex));
+  document.querySelectorAll(".mission-test-grid button[data-mystery-index]").forEach(button => button.classList.toggle("active", testLockedPreview && Number(button.dataset.mysteryIndex) === testMissionIndex));
   document.getElementById("reset-test").hidden = !previewing;
   if (!unlocked) {
     const t = countdownParts(missionUnlockAt - now);
     document.getElementById("countdown").innerHTML = `${t.days ? `<span><b>${String(t.days).padStart(2,"0")}</b><small>天</small></span>` : ""}<span><b>${String(t.hours).padStart(2,"0")}</b><small>時</small></span><em>:</em><span><b>${String(t.minutes).padStart(2,"0")}</b><small>分</small></span><em>:</em><span><b>${String(t.seconds).padStart(2,"0")}</b><small>秒</small></span>`;
   }
 }
-document.getElementById("mission-test-grid").innerHTML = [1,2].map(day => `<section><b>DAY ${day}<small>${day === 1 ? "09.04" : "09.05"}</small></b><div>${missions.map((mission,index) => mission.day === day ? `<button type="button" data-mission-index="${index}"><span>${mission.icon}</span>${mission.key}</button>` : "").join("")}</div></section>`).join("");
+document.getElementById("mission-test-grid").innerHTML = [1,2].map(day => {
+  const dayMissions = missions.map((mission,index) => ({mission,index})).filter(item => item.mission.day === day);
+  const sequence = dayMissions.map((item,position) => `${position ? `<button class="mystery-trigger" type="button" data-mystery-index="${item.index}" aria-label="查看${item.mission.key}的倒數與謎面"><span>迷</span></button>` : ""}<button type="button" data-mission-index="${item.index}" aria-label="查看${item.mission.key}謎底"><span>${item.mission.icon}</span>${item.mission.key}</button>`).join("");
+  return `<section><b>DAY ${day}<small>${day === 1 ? "09.04" : "09.05"}</small></b><div>${sequence}</div></section>`;
+}).join("");
 document.getElementById("mission-test-grid").addEventListener("click", event => {
   const button = event.target.closest("button[data-mission-index]");
   if (!button) return;
   testMissionIndex = Number(button.dataset.missionIndex);
+  testLockedPreview = false;
   renderMission();
   document.getElementById("mission-card").scrollIntoView({behavior:"smooth",block:"center"});
 });
-document.getElementById("reset-test").addEventListener("click", () => { testMissionIndex = null; renderMission(); });
+document.getElementById("mission-test-grid").addEventListener("click", event => {
+  const button = event.target.closest("button[data-mystery-index]");
+  if (!button) return;
+  testMissionIndex = Number(button.dataset.mysteryIndex);
+  testLockedPreview = true;
+  renderMission();
+  document.getElementById("mission-card").scrollIntoView({behavior:"smooth",block:"center"});
+});
+document.getElementById("reset-test").addEventListener("click", () => { testMissionIndex = null; testLockedPreview = false; renderMission(); });
 setInterval(renderMission,1000); renderMission();
 
 function normalizeName(value) {
