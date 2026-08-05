@@ -419,3 +419,24 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 }
 #home .clue-panel { margin-top:8px; }
 body.keyboard-open .content#group { overflow-y:auto; }
+
+/* 首頁不需要捲動：主圖吸收所有剩餘高度，避免線索卡與 Dock 之間留白。 */
+#home.tab-page.active {
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+#home .hero-photo {
+  flex:1 1 auto;
+  width:100%;
+  height:auto;
+  min-height:0;
+  aspect-ratio:auto;
+}
+#home .hero-photo img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+#home .clue-panel { flex:none; }

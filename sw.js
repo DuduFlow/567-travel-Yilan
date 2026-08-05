@@ -1,7 +1,7 @@
 /* 567 神秘小旅行 — 離線快取
    改版流程：更新下方 VERSION 字串 → push 到 GitHub → 手機下次開啟自動清舊快取重載。
    （autoupdate.js 會比對這個字串，兩邊必須一致） */
-const VERSION = "567mystery-v5-20260805";
+const VERSION = "567mystery-v6-20260805";
 
 const CORE = [
   "./",
