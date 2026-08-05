@@ -16,7 +16,7 @@
   <meta name="description" content="下一站，時間到了才知道｜567 宜蘭二日神秘旅程">
   <meta property="og:title" content="567 神秘小旅行">
   <meta property="og:description" content="下一站，時間到了才知道">
-  <meta property="og:image" content="assets/og-mystery.png">
+  <meta property="og:image" content="assets/og-mystery.jpg">
   <title>567 神秘小旅行</title>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
@@ -26,65 +26,127 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="style.css?v=567mystery-v15-20260806">
+  <link rel="preload" as="image" href="assets/home-mystery-quest.jpg">
+  <link rel="stylesheet" href="style.css?v=567mystery-v22-20260806">
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <g id="i-home" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.4 12 3l9 7.4"/><path d="M5.6 9.4V20h12.8V9.4"/><path d="M10 20v-4.6h4V20"/></g>
+    <g id="i-trip" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-2.2 4.6-4.6 2.2 2.2-4.6 4.6-2.2Z"/></g>
+    <g id="i-group" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.4 18.7c1.1-2.4 3.1-3.7 5.6-3.7s4.5 1.3 5.6 3.7"/></g>
+    <g id="i-refresh" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.4h-4.4"/></g>
+    <g id="i-search" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.4"/><path d="m16 16 4.2 4.2"/></g>
+    <g id="i-close" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></g>
+    <g id="i-lock" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.6"/><path d="M8.4 10.5V7.8a3.6 3.6 0 0 1 7.2 0v2.7"/></g>
+    <g id="i-pin" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></g>
+    <g id="i-share" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7.6 7.4 4.4-4.4 4.4 4.4"/><path d="M5 14v5.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V14"/></g>
+  </defs></svg>
+
   <main class="app-shell">
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-    <header class="topbar"><span class="build-tag" id="build-tag">v15-20260806</span><button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新" title="立即更新">↻</button></header>
+    <header class="topbar">
+      <span class="build-tag" id="build-tag">v22-20260806</span>
+      <button class="refresh-button" id="refresh-button" type="button" aria-label="立即更新"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-refresh"/></svg></button>
+    </header>
 
+    <!-- ==================== 首頁 ==================== -->
     <section class="content tab-page active" id="home">
-      <div class="hero-photo"><img src="assets/home-mystery-quest.png" alt="567 Mystery Quest，未知才是旅程最精彩的開始"></div>
-      <button class="clue-panel" data-tab="trip" type="button" aria-label="查看下一站倒數"><span class="clue-spark">✦</span><div class="secret-progress"><p><small>目前線索</small><b id="home-progress-text">0 / 7 已揭曉</b><em>下一站將於出發前一小時揭曉</em></p><div class="progress-dots" id="home-progress-dots" aria-label="已揭曉零個，共七個"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><i class="clue-arrow">›</i></button>
+      <div class="hero-photo"><img src="assets/home-mystery-quest.jpg" alt="567 Mystery Quest，未知才是旅程最精彩的開始" fetchpriority="high"></div>
+      <button class="clue-panel" data-tab="trip" type="button">
+        <span class="clue-spark" aria-hidden="true">✦</span>
+        <span class="secret-progress">
+          <small>目前線索</small>
+          <b id="home-progress-text">0 / 7 已揭曉</b>
+          <em id="home-progress-note">下一站將於出發前揭曉</em>
+          <span class="progress-dots" id="home-progress-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </span>
+        <i class="clue-arrow" aria-hidden="true">›</i>
+      </button>
     </section>
 
+    <!-- ==================== 行程 ==================== -->
     <section class="content tab-page" id="trip">
-      <div class="trip-overview"><div><small id="trip-day-label">DAY 1 · 09.04</small><b id="trip-progress-label">NEXT MISSION · 0 / 7</b></div><div class="trip-progress-dots" id="trip-progress-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-      <div class="reveal-stage">
-        <div class="mystery-card locked" id="mission-card" aria-live="polite">
-          <div class="mission-meta" id="mission-meta">DAY 1 · MISSION 01</div>
-          <div class="mystery-orbit"><span id="mission-icon">?</span><i></i></div>
-          <small id="mission-status">UNLOCKS ONE HOUR BEFORE</small>
-          <strong id="mission-title">目的地暫時保密</strong>
-          <div id="locked-content">
-            <div class="countdown" id="countdown" aria-label="距離解鎖倒數"></div>
-            <div class="clue-list" id="mission-clues"></div>
-          </div>
-          <div class="revealed-details" id="revealed-content" hidden><p id="mission-subtitle"></p><span id="mission-time"></span><span id="mission-prep"></span><a class="map-link" id="mission-map" href="#" target="_blank" rel="noopener noreferrer">在 Google Maps 開啟　↗</a></div>
+      <div class="trip-head"><b id="trip-day">DAY 1 · 09.04</b><span id="trip-count">0 / 7 已揭曉</span></div>
+
+      <article class="mystery-card locked" id="mission-card">
+        <div class="mission-meta" id="mission-meta">DAY 1 · MISSION 01</div>
+
+        <div class="mission-body" id="locked-content">
+          <p class="mission-lead">目的地暫時保密</p>
+          <div class="countdown" id="countdown"></div>
+          <p class="countdown-label">距離揭曉</p>
+          <div class="clue-list" id="mission-clues"></div>
         </div>
-        <div class="mission-tests"><small>任務揭曉測試</small><div class="mission-test-grid" id="mission-test-grid"></div><button class="reset-test" id="reset-test" type="button">恢復倒數畫面</button></div>
+
+        <div class="mission-body revealed" id="revealed-content" hidden>
+          <span class="mission-icon" id="mission-icon">?</span>
+          <h2 id="mission-title"></h2>
+          <p id="mission-subtitle"></p>
+          <div class="revealed-meta">
+            <b id="mission-time"></b>
+            <span id="mission-prep"></span>
+          </div>
+          <a class="map-link" id="mission-map" href="#" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>在 Google Maps 開啟</a>
+        </div>
+      </article>
+      <p class="sr-only" id="mission-live" aria-live="polite"></p>
+
+      <div class="timeline" id="mission-timeline"></div>
+      <button class="back-now" id="back-now" type="button" hidden>回到目前進度</button>
+
+      <!-- ▼▼▼ 上線前把這兩塊（mission-tests 與 tip-card）整段刪掉即可 ▼▼▼ -->
+      <div class="mission-tests">
+        <small>任務揭曉測試</small>
+        <div class="mission-test-grid" id="mission-test-grid"></div>
+        <button class="reset-test" id="reset-test" type="button" hidden>恢復目前進度</button>
       </div>
       <div class="tip-card"><span>RULE</span><p>正式上線時可移除測試按鈕，時間一到就會自動揭曉。</p></div>
+      <!-- ▲▲▲ 測試工具結束 ▲▲▲ -->
     </section>
 
+    <!-- ==================== 查詢 ==================== -->
     <section class="content tab-page" id="group">
-      <div class="page-intro group-intro"><p class="eyebrow">LOOK UP</p><h1>快速查詢，<br><em>我的車與房。</em></h1><p>37 位旅伴 · 12 車 · 12 房</p></div>
+      <div class="group-head" id="group-head">
+        <p class="eyebrow">LOOK UP</p>
+        <h1>我的車與房</h1>
+      </div>
+
       <form class="name-search" id="name-search" autocomplete="off">
-        <label for="traveler-name">輸入你的姓名</label>
-        <div class="search-field"><input id="traveler-name" name="name" type="text" autocomplete="name" inputmode="text" placeholder="例如：陳怡靜" required><button type="submit">查詢</button></div>
-        <small>請輸入分房分車表上的姓名</small>
-        <div class="car-directory" id="car-directory" aria-label="依車次選擇姓名"></div>
-      </form>
-      <div class="query-message" id="query-message" role="status" hidden></div>
-      <section class="query-result" id="query-result" aria-live="polite" hidden>
-        <div class="personal-trip-card"><div class="result-welcome"><span>旅</span><p><small>MY TRIP CARD</small><strong id="result-name"></strong></p></div>
-        <div class="result-grid">
-          <article class="result-card car-result"><small>搭乘車輛</small><b id="result-car"></b><p>車長</p><strong id="result-leader"></strong><em id="result-leader-note"></em></article>
-          <article class="result-card room-result"><small>住宿房間</small><b id="result-room"></b><p>房型</p><strong id="result-room-type"></strong></article>
+        <label class="sr-only" for="traveler-name">輸入你的姓名</label>
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+          <input id="traveler-name" name="name" type="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="輸入姓名，例如 陳怡靜">
+          <button class="clear-name" id="clear-name" type="button" aria-label="清除" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
-        <div class="travel-companions"><article class="companions-card"><small>CAR MATES</small><h2>同車夥伴</h2><div id="result-carmates"></div></article><article class="roommates-card"><small>ROOMMATES</small><h2>今晚的室友</h2><div id="result-roommates"></div></article></div>
-        <button class="search-again" id="search-again" type="button">重新查詢</button></div>
-      </section>
+        <div class="suggest" id="suggest" role="listbox" aria-label="姓名候選"></div>
+      </form>
+
+      <div class="search-hint" id="search-hint">
+        <span class="search-hint-icon" aria-hidden="true">旅</span>
+        <div class="search-hint-copy">
+          <b>領取你的專屬旅程卡</b>
+          <p>輸入姓名其中一個字，即時選擇自己<br>本名或群組暱稱都查得到</p>
+        </div>
+        <div class="lookup-items" aria-label="可查詢的資訊">
+          <span>車長</span><span>同車夥伴</span><span>房型</span><span>室友</span>
+        </div>
+        <small>姓名只在你的裝置上查詢，不會送出或儲存。</small>
+      </div>
+
+      <div class="query-message" id="query-message" role="status" hidden></div>
+      <section class="trip-card" id="query-result" hidden></section>
     </section>
 
     <nav class="bottom-nav" aria-label="主要導覽">
-      <button class="active" data-tab="home"><span>⌂</span><b>首頁</b></button>
-      <button data-tab="trip"><span>◫</span><b>行程</b></button>
-      <button data-tab="group"><span>◎</span><b>查詢</b></button>
+      <button class="active" data-tab="home" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-home"/></svg><b>首頁</b></button>
+      <button data-tab="trip" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trip"/></svg><b>行程</b></button>
+      <button data-tab="group" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-group"/></svg><b>查詢</b></button>
     </nav>
   </main>
+
   <div class="rotate-guard" aria-hidden="true"><div><span>⟳</span><b>請直立使用</b><small>567 神秘小旅行僅支援直式畫面</small></div></div>
-  <script src="app.js?v=567mystery-v15-20260806"></script>
-  <script src="autoupdate.js?v=567mystery-v15-20260806"></script>
+
+  <script src="app.js?v=567mystery-v22-20260806"></script>
+  <script src="autoupdate.js?v=567mystery-v22-20260806"></script>
 </body>
 </html>
