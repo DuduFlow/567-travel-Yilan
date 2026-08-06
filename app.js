@@ -307,7 +307,6 @@ function showTraveler(person) {
         <h2>${escapeHtml(person.name)}</h2>
         <p>第 ${car} 車 · 第 ${room} 房</p>
       </div>
-      <button class="switch-person" type="button" id="switch-person">換人</button>
     </div>
 
     <div class="tc-panel">
@@ -332,13 +331,13 @@ function showTraveler(person) {
     </div>`;
 
   $("query-result").hidden = false;
-  $("name-search").hidden = true;
   $("search-hint").hidden = true;
   $("query-message").hidden = true;
-  $("group-head").hidden = true;
+  $("suggest").innerHTML = "";
+  $("traveler-name").value = person.name;
+  $("clear-name").hidden = false;
   try { localStorage.setItem(STORAGE_KEY, person.name); } catch (e) {}
 
-  $("switch-person").addEventListener("click", resetQuery);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -361,6 +360,7 @@ $("traveler-name").addEventListener("input", event => {
   const value = event.target.value.trim();
   $("clear-name").hidden = !value;
   $("query-message").hidden = true;
+  $("query-result").hidden = true;
   if (!value) { $("suggest").innerHTML = ""; $("search-hint").hidden = false; return; }
   const list = matchPeople(value);
   $("search-hint").hidden = true;
@@ -394,6 +394,9 @@ $("clear-name").addEventListener("click", () => {
   $("suggest").innerHTML = "";
   $("search-hint").hidden = false;
   $("query-message").hidden = true;
+  $("query-result").hidden = true;
+  $("query-result").innerHTML = "";
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
   input.focus();
 });
 

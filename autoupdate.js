@@ -4,7 +4,7 @@
 
    ★ 改版時：這裡的 BUILD 要跟 sw.js 的 VERSION 改成同一個字串。 */
 (() => {
-  const BUILD = "567mystery-v27-20260806";
+  const BUILD = "567mystery-v28-20260806";
   const DISPLAY_VERSION = "V2";
 
   const src = (document.currentScript && document.currentScript.src) || "";

@@ -277,8 +277,6 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .trip-card-head { padding:16px 18px 12px; display:flex; align-items:flex-start; justify-content:space-between; gap:var(--s3); }
 .trip-card-head h2 { margin:0; font-size:var(--f6); font-weight:700; letter-spacing:.02em; color:#fff; line-height:1.15; }
 .trip-card-head p { margin:var(--s2) 0 0; color:var(--on-card-2); font-size:var(--f2); letter-spacing:.02em; }
-.switch-person { flex:none; height:36px; padding:0 var(--s3); border:1px solid var(--hair); border-radius:999px; color:var(--on-card); background:var(--panel); font-size:var(--f2); font-weight:600; }
-
 .tc-panel { margin:0 12px 10px; padding:12px; border-radius:var(--r2); background:var(--panel); }
 .tc-panel > h3 { margin:0 0 9px; font-size:var(--f4); font-weight:600; color:#fff; letter-spacing:.02em; }
 
