@@ -41,7 +41,7 @@ const people = [
   {name:"徐維鈴",car:5,room:4,alias:"小徐"},
   {name:"吳佳蓁",car:5,room:4,alias:"佳蓁"},
   {name:"王銘宏",car:5,room:12},
-  {name:"王玉婷",car:5,room:12,alias:"王閨蜜"},
+  {name:"甘秉仙",car:5,room:12,alias:"王閨蜜"},
   {name:"白婕妤",car:6,room:11},
   {name:"周紋妤",car:6,room:11},
   {name:"陳彥朋",car:7,room:9,alias:"POTER"},
