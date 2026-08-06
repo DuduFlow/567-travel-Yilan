@@ -1,7 +1,7 @@
 /* 567 神秘小旅行 — 離線快取
    改版流程：更新下方 VERSION 字串 → push 到 GitHub → 手機下次開啟自動清舊快取重載。
    （autoupdate.js 的 BUILD 必須跟這個字串一致） */
-const VERSION = "567mystery-v33-20260806";
+const VERSION = "567mystery-v34-20260806";
 
 /* og-mystery.jpg 只給社群預覽用，畫面上不會顯示，所以不預先下載 */
 const CORE = [

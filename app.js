@@ -80,12 +80,6 @@ const missions = [
   {day:2,date:"09.05",unlockAt:"2026-09-05T15:00:00+08:00",key:"晚宴",icon:"宴",title:"馫序集創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["567 旅遊的收尾標配","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/kytCo97Ldd6eb2Bj9"}
 ];
 
-/* 民宿那一站，查詢頁的導航按鈕會指到這裡 */
-const STAY = missions.find(m => m.key === "民宿");
-
-/* 揭曉後保持顯示的時間（毫秒）：時間一到卡片翻開並停留 90 分鐘，之後才接著倒數下一站 */
-const REVEAL_HOLD = 90 * 60 * 1000;
-
 /* 線索是否隨時間一則一則釋出。目前 false＝解鎖前三則一次全給。
    想改成漸進釋出，把這裡改成 true 即可，其餘程式不用動。 */
 const PROGRESSIVE_CLUES = false;
@@ -107,9 +101,10 @@ document.querySelectorAll("[data-tab]").forEach(button => button.addEventListene
 /* --------------------------------------------------------------------------
    四、行程頁
    -------------------------------------------------------------------------- */
-let preview = null;      // 使用者回看或測試預覽時的 {index, unlocked}
+let preview = null;      // 使用者主動查看的已揭曉站或下一站倒數
 let lastSignature = "";
 let countdownNodes = null;
+let previousOpened = null;
 
 function releasedClueCount(index, now) {
   const total = missions[index].clues.length;
@@ -124,15 +119,29 @@ function unlockedCount(now) {
   return missions.filter((mission, i) => now >= unlockTime(i)).length;
 }
 
-/* 目前該顯示哪一站：剛解鎖的站先翻開停留，過了保持期才接著倒數下一站 */
+/* 最新揭曉站會持續保留；旅程開始前才直接顯示第一站倒數。 */
 function currentView(now) {
-  let last = -1;
-  for (let i = 0; i < missions.length; i++) if (now >= unlockTime(i)) last = i;
-  if (last >= 0 && now - unlockTime(last) < REVEAL_HOLD) return { index: last, unlocked: true };
-  const next = missions.findIndex((mission, i) => now < unlockTime(i));
-  if (next < 0) return { index: missions.length - 1, unlocked: true };
-  return { index: next, unlocked: false };
+  let latest = -1;
+  for (let i = 0; i < missions.length; i++) if (now >= unlockTime(i)) latest = i;
+  return latest < 0 ? { index:0, unlocked:false } : { index:latest, unlocked:true };
 }
+
+function nextMissionIndex(now) {
+  return missions.findIndex((mission, i) => now < unlockTime(i));
+}
+
+function revealLabel(index) {
+  const time = new Date(unlockTime(index));
+  return `${String(time.getHours()).padStart(2,"0")}:${String(time.getMinutes()).padStart(2,"0")}`;
+}
+
+function buildProgressUI() {
+  const count = missions.length;
+  $("home-progress-dots").style.setProperty("--mission-count", count);
+  $("home-progress-dots").innerHTML = missions.map(() => "<i></i>").join("");
+  $("mission-timeline").style.setProperty("--mission-count", count);
+}
+buildProgressUI();
 
 function buildCountdown(showDays) {
   const unit = (key, label) => `<span data-cd="${key}"><b>00</b><i>${label}</i></span>`;
@@ -172,6 +181,7 @@ function renderMission(view, released) {
     $("mission-time").textContent = mission.time;
     $("mission-prep").textContent = mission.prep;
     $("mission-map").href = mission.map;
+    $("mission-group").hidden = mission.key !== "民宿";
     $("mission-live").textContent = `已揭曉：${mission.title}，${mission.time}`;
     countdownNodes = null;
   } else {
@@ -190,22 +200,28 @@ function renderMission(view, released) {
 
 function renderTimeline(view) {
   const now = Date.now();
+  const next = nextMissionIndex(now);
   $("mission-timeline").innerHTML = missions.map((mission, i) => {
-    const open = now >= unlockTime(i);
+    const revealed = now >= unlockTime(i);
+    const countdownReady = i === next;
     const isNow = !preview && i === view.index;
-    const cls = open ? (isNow ? "is-now" : "") : (isNow ? "is-now" : "is-locked");
-    const face = open ? mission.icon : (isNow ? "?" : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg>`);
+    const cls = revealed ? (isNow ? "is-now" : "is-revealed") : (countdownReady ? "is-countdown" : "is-locked");
+    const face = revealed ? mission.icon : (countdownReady ? `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg>` : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg>`);
     const viewing = preview && preview.index === i ? " is-viewing" : "";
-    const label = open ? `回看第 ${i + 1} 站 ${mission.title}` : `第 ${i + 1} 站尚未揭曉`;
-    return `<button type="button" class="${cls}${viewing}" data-open="${open ? 1 : 0}" data-index="${i}" aria-label="${label}">${face}</button>`;
+    const mode = revealed ? "revealed" : countdownReady ? "countdown" : "locked";
+    const label = revealed ? `查看第 ${i + 1} 站 ${mission.title}` : countdownReady ? `查看下一站倒數，${revealLabel(i)} 揭曉` : `第 ${i + 1} 站尚未開放`;
+    return `<button type="button" class="${cls}${viewing}" data-mode="${mode}" data-index="${i}" aria-label="${label}" ${mode === "locked" ? "disabled" : ""}>${face}</button>`;
   }).join("");
 }
 
 function tick() {
   const now = Date.now();
-  const view = preview || currentView(now);
-  const released = preview ? missions[view.index].clues.length : releasedClueCount(view.index, now);
   const opened = unlockedCount(now);
+  /* 新站到時間時，不論正在回看或看倒數，都自動回到最新揭曉。 */
+  if (previousOpened !== null && opened > previousOpened) preview = null;
+  previousOpened = opened;
+  const view = preview || currentView(now);
+  const released = releasedClueCount(view.index, now);
 
   const signature = `${view.index}|${view.unlocked}|${released}|${preview ? 1 : 0}|${opened}`;
   if (signature !== lastSignature) {
@@ -213,7 +229,8 @@ function tick() {
     renderMission(view, released);
     $("home-progress-text").textContent = `${opened} / ${missions.length} 已揭曉`;
     $("trip-count").textContent = `${opened} / ${missions.length} 已揭曉`;
-    $("home-progress-note").textContent = opened === missions.length ? "全部站點都已揭曉" : "下一站將於出發前揭曉";
+    const next = nextMissionIndex(now);
+    $("home-progress-note").textContent = next < 0 ? "全部站點都已揭曉" : `${next === 0 ? "第一站" : "下一站"} ${revealLabel(next)} 揭曉`;
     document.querySelectorAll("#home-progress-dots i").forEach((dot, i) => dot.classList.toggle("unlocked", i < opened));
   }
   if (!view.unlocked) paintCountdown(unlockTime(view.index) - now);
@@ -221,13 +238,15 @@ function tick() {
 
 $("mission-timeline").addEventListener("click", event => {
   const button = event.target.closest("button[data-index]");
-  if (!button || button.dataset.open !== "1") return;
+  if (!button || button.disabled || button.dataset.mode === "locked") return;
   const index = Number(button.dataset.index);
-  preview = preview && preview.index === index ? null : { index, unlocked: true };
+  const unlocked = button.dataset.mode === "revealed";
+  preview = preview && preview.index === index && preview.unlocked === unlocked ? null : { index, unlocked };
   lastSignature = "";
   tick();
 });
 $("back-now").addEventListener("click", () => { preview = null; lastSignature = ""; tick(); });
+$("mission-group").addEventListener("click", () => selectTab("group"));
 
 setInterval(tick, 1000);
 tick();

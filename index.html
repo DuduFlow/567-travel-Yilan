@@ -27,7 +27,7 @@
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#17352c">
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" as="image" href="assets/home-mystery-quest.jpg">
-  <link rel="stylesheet" href="style.css?v=567mystery-v33-20260806">
+  <link rel="stylesheet" href="style.css?v=567mystery-v34-20260806">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -38,6 +38,7 @@
     <g id="i-search" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.4"/><path d="m16 16 4.2 4.2"/></g>
     <g id="i-close" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></g>
     <g id="i-lock" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.6"/><path d="M8.4 10.5V7.8a3.6 3.6 0 0 1 7.2 0v2.7"/></g>
+    <g id="i-clock" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></g>
     <g id="i-pin" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></g>
     <g id="i-share" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7.6 7.4 4.4-4.4 4.4 4.4"/><path d="M5 14v5.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V14"/></g>
   </defs></svg>
@@ -58,7 +59,7 @@
           <small>目前線索</small>
           <b id="home-progress-text">0 / 7 已揭曉</b>
           <em id="home-progress-note">下一站將於出發前揭曉</em>
-          <span class="progress-dots" id="home-progress-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="progress-dots" id="home-progress-dots" aria-hidden="true"></span>
         </span>
         <i class="clue-arrow" aria-hidden="true">›</i>
       </button>
@@ -96,12 +97,13 @@
             <span id="mission-prep"></span>
           </div>
           <a class="map-link" id="mission-map" href="#" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>在 Google Maps 開啟</a>
+          <button class="group-link" id="mission-group" type="button" hidden>查看我的房間與室友</button>
         </div>
       </article>
       <p class="sr-only" id="mission-live" aria-live="polite"></p>
 
       <div class="timeline" id="mission-timeline"></div>
-      <button class="back-now" id="back-now" type="button" hidden>回到目前進度</button>
+      <button class="back-now" id="back-now" type="button" hidden>回到最新揭曉</button>
 
     </section>
 
@@ -147,7 +149,7 @@
 
   <div class="rotate-guard" aria-hidden="true"><div><span>⟳</span><b>請直立使用</b><small>567 神秘小旅行僅支援直式畫面</small></div></div>
 
-  <script src="app.js?v=567mystery-v33-20260806"></script>
-  <script src="autoupdate.js?v=567mystery-v33-20260806"></script>
+  <script src="app.js?v=567mystery-v34-20260806"></script>
+  <script src="autoupdate.js?v=567mystery-v34-20260806"></script>
 </body>
 </html>
