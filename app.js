@@ -77,7 +77,7 @@ const missions = [
   {day:1,date:"09.04",unlockAt:"2026-09-04T16:00:00+08:00",key:"民宿",icon:"宿",title:"真善美精品民宿",subtitle:"今晚一起好好休息",time:"行程｜入住與分房",prep:"準備｜查看查詢頁的房間與室友",clues:["這裡是今晚的落腳處","今晚晚餐必定精彩","先放下行李再繼續冒險"],map:"https://maps.app.goo.gl/DHjGxREJJBrxrXEx6"},
   {day:2,date:"09.05",unlockAt:"2026-09-05T10:30:00+08:00",key:"採蔥",icon:"蔥",title:"星寶蔥體驗農場",subtitle:"親手完成一份宜蘭蔥體驗",time:"行程｜田園體驗",prep:"準備｜防曬、好走的鞋",clues:["田裡藏著綠色寶藏","今天可能會沾上一點泥土","主角是宜蘭最有名的辛香滋味"],map:"https://maps.app.goo.gl/3LdMG3n4wv84r2s19"},
   {day:2,date:"09.05",unlockAt:"2026-09-05T13:00:00+08:00",key:"狐狸",icon:"狐",title:"宜蘭狐狸村",subtitle:"拜訪毛茸茸的神秘居民",time:"行程｜園區探訪",prep:"準備｜相機與輕柔的腳步",clues:["有人正用毛茸茸的尾巴等你","靠近時記得放慢腳步","相機可以先準備好了"],map:"https://maps.app.goo.gl/GigQgkMxhXHn8Scd6"},
-  {day:2,date:"09.05",unlockAt:"2026-09-05T15:00:00+08:00",key:"晚宴",icon:"宴",title:"馫宴創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["567 旅遊的收尾標配","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/GqyNBGaTzk5FJDZm9"}
+  {day:2,date:"09.05",unlockAt:"2026-09-05T15:00:00+08:00",key:"晚宴",icon:"宴",title:"馫序集創意料理",subtitle:"一起為旅程留下今晚的記憶",time:"行程｜晚宴時光",prep:"準備｜舒服又好看的心情",clues:["567 旅遊的收尾標配","這一站適合一起舉杯","留一點胃，也留一點期待"],map:"https://maps.app.goo.gl/kytCo97Ldd6eb2Bj9"}
 ];
 
 /* 民宿那一站，查詢頁的導航按鈕會指到這裡 */
@@ -177,6 +177,7 @@ function renderMission(view, released) {
   } else {
     $("clue-heading").textContent = view.index === 0 ? "出發前，先準備好" : "下一站線索";
     $("mission-clues").classList.toggle("is-prep", view.index === 0);
+    $("fee-panel").hidden = view.index !== 0;
     $("mission-clues").innerHTML = mission.clues.map((clue, i) => i < released
       ? `<p><span>0${i + 1}</span><b>${clue}</b></p>`
       : `<p class="pending"><span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg></span><b>線索稍後出現</b></p>`

@@ -145,6 +145,7 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 /* --------------------------------------------------------------------------
    7. 行程頁
    -------------------------------------------------------------------------- */
+#trip.content,#group.content { padding-bottom:calc(var(--dock) + var(--s4)); }
 #trip.content { gap:var(--s3); }
 
 .trip-head { flex:none; display:flex; align-items:baseline; justify-content:space-between; }
@@ -177,6 +178,7 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
   color:var(--on-card); font-size:var(--f1); font-weight:600; letter-spacing:.1em;
 }
 .mission-body { position:relative; z-index:1; width:100%; }
+.mystery-card.locked #locked-content { padding-top:64px; }
 .mission-body.revealed { padding-top:30px; }
 
 .mission-lead { margin:0; display:grid; justify-items:center; gap:11px; }
@@ -202,6 +204,20 @@ img { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 .clue-list .pending { opacity:.5; }
 .clue-list .pending span, .clue-list .pending b { color:var(--on-card-2); }
 .clue-list .pending svg { width:13px; height:13px; vertical-align:-2px; }
+
+.fee-panel { width:100%; margin-top:22px; padding-top:18px; border-top:1px dashed var(--hair); text-align:left; }
+.fee-title { margin-bottom:10px; display:flex; align-items:baseline; justify-content:space-between; }
+.fee-title span { color:var(--gold-text); font-size:10px; font-weight:700; letter-spacing:.18em; }
+.fee-title b { color:#fff; font-size:15px; font-weight:650; letter-spacing:.06em; }
+.fee-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.fee-grid > div { min-width:0; padding:12px 11px 10px; border:1px solid rgba(255,255,255,.13); border-radius:14px; display:grid; background:rgba(255,255,255,.075); }
+.fee-grid small { min-height:30px; color:var(--on-card-2); font-size:11px; font-weight:600; line-height:1.4; }
+.fee-grid strong { margin-top:4px; color:#fff; font-family:var(--font-num); font-size:24px; font-weight:400; line-height:1; letter-spacing:.01em; }
+.fee-grid strong i { margin-right:2px; color:var(--gold-text); font-family:var(--font-body); font-size:12px; font-style:normal; vertical-align:5px; }
+.fee-grid em { margin-top:6px; color:var(--gold-text); font-size:10px; font-style:normal; font-weight:700; letter-spacing:.08em; }
+.fee-deadline { margin:8px 0 0; padding:9px 12px; border-radius:12px; display:flex; align-items:center; justify-content:space-between; color:#193d32; background:linear-gradient(100deg,#f0d18f,#f6dfae); }
+.fee-deadline span { font-size:11px; font-weight:700; letter-spacing:.08em; }
+.fee-deadline b { font-family:var(--font-num); font-size:15px; font-weight:700; letter-spacing:.04em; }
 
 .mission-icon {
   width:52px; height:52px; margin:0 auto; border-radius:50%; display:grid; place-items:center;
